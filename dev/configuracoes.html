@@ -1,0 +1,759 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=ISO-8859-1">
+  <title>Configura&ccedil;&otilde;es</title>
+</head>
+
+<body style="margin: 0px;" bgcolor="">
+<form name="myForm" method="post">
+
+
+<br> 
+<table cellpadding="3" cellspacing="2" style="margin-left: 10px;">
+<tr>
+    <% if (gestaoType.equals("diario")) {%>
+            <td><input name="gestao" src="bt_diario_down.png"  onclick=document.myForm.gestao.value="diario"; value="diario" height="32" type="image" width="67"></td>	    	                             
+	    <% } else { %>
+		    <td><input name="gestao" src="bt_diario_up.png"  onclick=document.myForm.gestao.value="diario"; value="diario" height="32" type="image" width="67"></td>	    
+	    <% } %>	                       
+
+	    <% if (gestaoType.equals("mensal")) {%>
+    		<td><input name="gestao" src="bt_mensal_down.png"  onclick=document.myForm.gestao.value="mensal"; value="mensal" height="32" type="image" width="67"></td>	    
+	    <% } else { %>
+  		    <td><input name="gestao" src="bt_mensal_up.png"  onclick=document.myForm.gestao.value="mensal"; value="mensal" height="32" type="image" width="67"></td>	    
+	    <% } %>	                       
+
+	    <% if (gestaoType.equals("gestao")) {%>
+		    <td><input name="gestao" src="bt_gestao_down.png"  onclick=document.myForm.gestao.value="gestao"; value="gestao" height="32" type="image" width="67"></td>	    
+	    <% } else { %>
+		    <td><input name="gestao" src="bt_gestao_up.png"  onclick=document.myForm.gestao.value="gestao"; value="gestao" height="32" type="image" width="67"></td>
+	    <% } %>	                       
+
+	    <% if (gestaoType.equals("resumos")) {%>
+ 		    <td><input name="gestao" src="bt_resumos_down.png"  onclick=document.myForm.gestao.value="resumos"; value="resumos" height="32" type="image" width="78"></td>
+	    <% } else { %>
+		    <td><input name="gestao" src="bt_resumos_up.png"  onclick=document.myForm.gestao.value="resumos"; value="resumos" height="32" type="image" width="78"></td>
+	    <% } %>
+	</tr>
+	</table>
+    <img style="width: 654px; height: 2px;" alt="" src="linha_separacao.png">		
+	<br><br>
+
+
+<!-- Table type = noSelection -->
+  <table style="text-align: left;" border="0" cellpadding="0"
+ cellspacing="0">
+    <tbody>
+      <tr>
+        <td
+ style="height: 5px; margin-left: 10px; background-color: rgb(204, 204, 204); width: 6px;"
+ colspan="12" rowspan="1"></td>
+      </tr>
+      <tr>
+        <td
+ style="width: 6px; height: 32px; background-color: rgb(204, 204, 204);"></td>
+        <td style="height: 32px; width: 164px;"> <input
+ name="tableType" onclick='document.myForm.tableType.value="diaria";'
+ value="diaria" src="bt_tab_diaria.jpg" height="34" type="image"
+ width="164"></td>
+        <td
+ style="height: 32px; background-color: rgb(204, 204, 204); width: 20px;"></td>
+        <td style="height: 32px; width: 164px;"><input name="tableType"
+ onclick='document.myForm.tableType.value="mensal";' value="mensal"
+ src="bt_tabela_up.jpg" height="34" type="image" width="164"></td>
+        <th
+ style="height: 32px; background-color: rgb(204, 204, 204); width: 20px;"></th>
+        <td style="height: 32px; width: 161px;"><input name="tableType"
+ onclick='document.myForm.tableType.value="anual";' value="anual"
+ src="bt_tabelaanual_up.jpg" height="34" type="image" width="164"></td>
+        <td
+ style="height: 32px; background-color: rgb(204, 204, 204); width: 20px;"></td>
+        <td style="height: 32px; width: 156px;"><input name="tableType"
+ onclick='document.myForm.tableType.value="graficos";' value="graficos"
+ src="bt_graficos_up.jpg" height="34" type="image" width="164"></td>
+        <td
+ style="height: 32px; background-color: rgb(204, 204, 204); width: 20px;"></td>
+        <td style="height: 32px; width: 181px;"><input name="tableType"
+ onclick='document.myForm.tableType.value="controle";' value="controle"
+ src="bt_controle_up.jpg" height="34" type="image" width="184"></td>
+        <td
+ style="height: 32px; background-color: rgb(204, 204, 204); width: 6px;"></td>
+        <th
+ style="width: 234px; height: 32px; white-space: nowrap; background-color: rgb(204, 204, 204);"></th>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <br>
+  <font
+ style="font-size: 16px; font-weight: bold; text-align: center; color: rgb(16, 16, 16); font-family: Arial; margin-left: 10px;">Painel
+de Avisos</font><br>
+  <br>
+  <table style="margin-left: 10px;" border="1" cellpadding="0"
+ cellspacing="0">
+    <tbody>
+      <tr>
+        <td
+ style="height: 38px; width: 272px; background-image: url(azul_barra.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial; font-weight: bold;"
+ align="center">ITEM</td>
+        <td
+ style="width: 120px; background-image: url(azul_barra.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial; font-weight: bold;"
+ align="center">DIRETORIA</td>
+        <td
+ style="width: 160px; background-image: url(azul_barra.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial; font-weight: bold;"
+ align="center">SUPERINTENDENTE</td>
+        <td
+ style="width: 110px; background-image: url(azul_barra.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial; font-weight: bold;"
+ align="center">GERENTE</td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha01.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Volume
+inferior ao padr&atilde;o</td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha02.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Volume
+superior ao projetado</td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha01.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Volume
+superior ao outorgado</td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha02.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Aus&ecirc;ncia
+de corrente el&eacute;trica</td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha01.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Tempo
+de bombeamento &gt; Jornada projetada</td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha02.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">N.M&aacute;x
+&gt; ND</td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha02.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Aus&ecirc;ncia
+de Dados Microbiol&oacute;gicos</td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td
+ style="font-family: Arial; height: 38px; background-image: url(linha02.jpg);"><small>Dados
+microbiol&oacute;gicos fora do padr&atilde;o</small></td>
+        <td style="height: 38px; background-image: url(linha02.jpg);"></td>
+        <td style="height: 38px; background-image: url(linha02.jpg);"></td>
+        <td style="height: 38px; background-image: url(linha02.jpg);"></td>
+      </tr>
+      <tr>
+        <td
+ style="font-family: Arial; height: 38px; background-image: url(linha01.jpg);"><small>Par&acirc;metros
+f&iacute;sico-qu&iacute;micos fora do padr&atilde;o</small></td>
+        <td style="height: 38px; background-image: url(linha01.jpg);"></td>
+        <td style="height: 38px; background-image: url(linha01.jpg);"></td>
+        <td style="height: 38px; background-image: url(linha01.jpg);"></td>
+      </tr>
+      <tr>
+        <td
+ style="font-family: Arial; height: 38px; background-image: url(linha02.jpg);"><small>Demanda
+&gt; volume bombeado</small></td>
+        <td style="height: 38px; background-image: url(linha02.jpg);"></td>
+        <td style="height: 38px; background-image: url(linha02.jpg);"></td>
+        <td style="height: 38px; background-image: url(linha02.jpg);"></td>
+      </tr>
+      <tr>
+        <td
+ style="font-family: Arial; height: 38px; background-image: url(linha01.jpg);"><small>Vaz&atilde;o
+inferior &agrave; m&eacute;dia</small></td>
+        <td style="height: 38px; background-image: url(linha01.jpg);"></td>
+        <td style="height: 38px; background-image: url(linha01.jpg);"></td>
+        <td style="height: 38px; background-image: url(linha01.jpg);"></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <img style="width: 654px; height: 2px;" alt=""
+ src="linha_separacao.png"> <br>
+  <br>
+  <font
+ style="font-size: 16px; text-align: center; color: rgb(16, 16, 16); font-weight: bold; font-family: Arial; margin-left: 10px;">Quadro
+de Avisos Di&aacute;rio</font><br>
+  <br>
+  <table style="margin-left: 10px;" border="1" cellpadding="0"
+ cellspacing="0">
+    <tbody>
+      <tr>
+        <td rowspan="2"
+ style="height: 38px; width: 272px; background-image: url(azul_barra.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial; font-weight: bold;"
+ align="center">ITEM</td>
+        <td colspan="3"
+ style="width: 120px; background-image: url(azul_barra.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial; font-weight: bold;"
+ align="center">CRIT&Eacute;RIO DE AVALIA&Ccedil;&Atilde;O</td>
+      </tr>
+      <tr>
+        <td
+ style="width: 160px; background-image: url(filete_cinza.jpg); font-size: 12px; text-align: center; color: rgb(16, 16, 16); font-family: Arial; font-weight: bold;"
+ align="center">%</td>
+        <td
+ style="width: 110px; background-image: url(filete_cinza.jpg); font-size: 12px; text-align: center; color: rgb(16, 16, 16); font-family: Arial; font-weight: bold;"
+ align="center">TEMPO</td>
+        <td
+ style="width: 134px; background-image: url(filete_cinza.jpg); font-size: 12px; text-align: center; color: rgb(16, 16, 16); font-family: Arial; font-weight: bold;"
+ align="center">VALOR</td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha01.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Volume
+inferior ao padr&atilde;o&nbsp;</td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha02.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Volume
+superior ao projetado&nbsp;</td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha01.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Volume
+superior ao outorgado</td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha02.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Aus&ecirc;ncia
+de corrente el&eacute;trica*</td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha01.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Tempo
+de bombeamento . jornada projetada</td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha02.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">N.M&aacute;x
+&gt; ND</td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha02.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Aus&ecirc;ncia
+de Dados Microbiol&oacute;gicos*</td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <br>
+  <img style="width: 654px; height: 2px;" alt=""
+ src="linha_separacao.png"> <br>
+  <br>
+  <font
+ style="font-size: 16px; text-align: center; color: rgb(16, 16, 16); font-weight: bold; font-family: Arial; margin-left: 10px;">Quadro
+de Avisos Mensal</font><br>
+  <br>
+  <table style="margin-left: 10px;" border="1" cellpadding="0"
+ cellspacing="0">
+    <tbody>
+      <tr>
+        <td rowspan="2"
+ style="height: 38px; width: 272px; background-image: url(azul_barra.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial; font-weight: bold;"
+ align="center">ITEM</td>
+        <td colspan="3"
+ style="width: 120px; background-image: url(azul_barra.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial; font-weight: bold;"
+ align="center">CRIT&Eacute;RIO DE AVALIA&Ccedil;&Atilde;O</td>
+      </tr>
+      <tr>
+        <td
+ style="width: 160px; background-image: url(filete_cinza.jpg); font-size: 12px; text-align: center; color: rgb(16, 16, 16); font-family: Arial; font-weight: bold;"
+ align="center">%</td>
+        <td
+ style="width: 110px; background-image: url(filete_cinza.jpg); font-size: 12px; text-align: center; color: rgb(16, 16, 16); font-family: Arial; font-weight: bold;"
+ align="center">TEMPO</td>
+        <td
+ style="width: 134px; background-image: url(filete_cinza.jpg); font-size: 12px; text-align: center; color: rgb(16, 16, 16); font-family: Arial; font-weight: bold;"
+ align="center">VALOR</td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha01.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Volume
+inferior ao padr&atilde;o (%)</td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha02.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Volume
+superior ao projetado (%)</td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha01.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Volume
+superior ao outorgado (%)</td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha02.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Aus&ecirc;ncia
+de corrente el&eacute;trica</td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha01.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Aus&ecirc;ncia
+de Dados Microbiol&oacute;gicos/CRL</td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha02.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Par&acirc;metros
+f&iacute;sicos-qu&iacute;micos&gt;padr&atilde;o 2.814</td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td
+ style="height: 38px; width: 200px; background-image: url(linha02.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Volume
+inferior ao padr&atilde;o (%)</td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <br>
+  <img style="width: 654px; height: 2px;" alt=""
+ src="linha_separacao.png"> <br>
+  <br>
+  <br>
+  <font
+ style="font-size: 16px; text-align: center; color: rgb(16, 16, 16); font-family: Arial; margin-left: 10px;">Quadro
+de Avalia&ccedil;&atilde;o de Gest&atilde;o</font><br>
+  <br>
+  <table style="margin-left: 10px; height: 337px;" border="1"
+ cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td
+ style="height: 38px; width: 272px; background-image: url(azul_barra.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial; font-weight: bold;"
+ align="center">PAR&Acirc;METRO</td>
+        <td
+ style="width: 120px; background-image: url(azul_barra.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial; font-weight: bold;"
+ align="center">CRIT&Eacute;RIO</td>
+        <td
+ style="width: 160px; background-image: url(azul_barra.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial; font-weight: bold;"
+ align="center">LIMITE INFERIOR</td>
+        <td
+ style="width: 110px; background-image: url(azul_barra.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial; font-weight: bold;"
+ align="center">LIMITE SUPERIOR</td>
+      </tr>
+      <tr>
+        <td colspan="1" rowspan="2"
+ style="height: 38px; width: 200px; background-image: url(linha01.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Corrente
+(a)</td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; color: rgb(250, 250, 252); text-align: center; font-family: Arial;"><small><span
+ style="color: rgb(0, 0, 0);">%</span></small></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td style="text-align: center; font-family: Arial;"><small>Absoluto</small></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="1" rowspan="2"
+ style="height: 38px; width: 200px; background-image: url(linha02.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Demanda
+(m&sup3;)</td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; color: rgb(250, 250, 252); text-align: center; font-family: Arial;"><small><span
+ style="color: rgb(0, 0, 0);">%</span></small></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td style="text-align: center; font-family: Arial;"><small>Absoluto</small></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="1" rowspan="2"
+ style="height: 38px; width: 200px; background-image: url(linha01.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Damanda
+(m&sup3;)</td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; color: rgb(250, 250, 252); text-align: center; font-family: Arial;"><small><span
+ style="color: rgb(0, 0, 0);">%</span></small></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td style="text-align: center; font-family: Arial;"><small>Absoluto</small></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="1" rowspan="2"
+ style="height: 38px; width: 200px; background-image: url(linha02.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">N&iacute;vel
+m&iacute;nimo (m)</td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; color: rgb(250, 250, 252); text-align: center; font-family: Arial;"><small><span
+ style="color: rgb(0, 0, 0);">%</span></small></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td style="text-align: center; font-family: Arial;"><small>Absoluto</small></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="1" rowspan="2"
+ style="height: 38px; width: 200px; background-image: url(linha01.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">N&iacute;vel
+m&aacute;ximo (m)</td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; color: rgb(250, 250, 252); text-align: center; font-family: Arial;"><small><span
+ style="color: rgb(0, 0, 0);">%</span></small></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha01.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td style="text-align: center; font-family: Arial;"><small>Absoluto</small></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="1" rowspan="2"
+ style="height: 38px; width: 200px; background-image: url(linha02.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Vaz&atilde;o
+(m&sup3;/h)</td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; color: rgb(250, 250, 252); text-align: center; font-family: Arial;"><small><span
+ style="color: rgb(0, 0, 0);">%</span></small></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td style="text-align: center; font-family: Arial;"><small>Absoluto</small></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="1" rowspan="2"
+ style="height: 38px; width: 200px; background-image: url(linha02.jpg); font-size: 12px; text-align: left; color: rgb(16, 16, 16); font-family: Arial;">Volume
+(m&sup3;)</td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; color: rgb(250, 250, 252); text-align: center; font-family: Arial;"><small><span
+ style="color: rgb(0, 0, 0);">%</span></small></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+        <td
+ style="width: 50px; background-image: url(linha02.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial;"
+ align="center"></td>
+      </tr>
+      <tr>
+        <td style="text-align: center; font-family: Arial;"><small>Absoluto</small></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td style="font-family: Arial; height: 14px;" colspan="1"
+ rowspan="2"><small>Volume di&aacute;rio (m&sup3;)</small></td>
+        <td style="text-align: center; font-family: Arial;"><small><span
+ style="color: rgb(0, 0, 0);">%</span></small></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td
+ style="text-align: center; font-family: Arial; height: 14px;"><small>Absoluto</small></td>
+        <td style="height: 14px;"></td>
+        <td style="height: 14px;"></td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <br>
+  <img style="width: 654px; height: 2px;" alt=""
+ src="linha_separacao.png"> <br>
+  <br>
+  <br>
+  <table style="margin-left: 10px; width: 826px;" border="1"
+ cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td colspan="4" rowspan="1"
+ style="background-image: url(azul_barra.jpg); font-size: 12px; text-align: center; color: rgb(250, 250, 252); font-family: Arial; font-weight: bold; width: 233px; height: 38px;"
+ align="center">TEMPO DE ARMAZENAMENTO DOS DADOS </td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="1"
+ style="background-image: url(linha01.jpg); font-size: 12px; color: rgb(16, 16, 16); font-family: Arial; width: 159px; text-align: center; height: 38px;">PRIM&Aacute;RIOS</td>
+        <td colspan="2" rowspan="1"
+ style="background-image: url(linha01.jpg); font-size: 12px; color: rgb(250, 250, 252); font-family: Arial; width: 233px; text-align: center;"><span
+ style="color: rgb(0, 0, 0);">INCOSISTENTES</span></td>
+      </tr>
+      <tr>
+        <td colspan="1" rowspan="1"
+ style="background-image: url(linha02.jpg); font-size: 12px; color: rgb(16, 16, 16); font-family: Arial; width: 194px; text-align: center; height: 38px;"><br>
+( &nbsp; ) Anos<br>
+        <br>
+        <img style="width: 80px; height: 20px;" alt=""
+ src="../../bt_cadastrar_auxiliar.jpg"><br>
+        </td>
+        <td colspan="1" rowspan="1"
+ style="background-image: url(linha02.jpg); font-size: 12px; color: rgb(250, 250, 252); font-family: Arial; width: 159px; text-align: center;"><span
+ style="color: rgb(0, 0, 0);"><br>
+( &nbsp; ) Permanente<br>
+        <br>
+        </span><img style="width: 65px; height: 20px;" alt=""
+ src="../../bt_salvar_au.jpg"><br>
+        </td>
+        <td colspan="1" rowspan="1"
+ style="background-image: url(linha02.jpg); font-size: 12px; font-family: Arial; width: 159px; color: rgb(0, 0, 0); text-align: center;"><br>
+( &nbsp; ) Anos<br>
+        <br>
+        <img style="width: 80px; height: 20px;" alt=""
+ src="../../bt_cadastrar_auxiliar.jpg"><br>
+        </td>
+        <td colspan="1" rowspan="1"
+ style="background-image: url(linha02.jpg); font-size: 12px; font-family: Arial; width: 233px; color: rgb(0, 0, 0); text-align: center;"><br>
+( &nbsp; ) Anos<br>
+        <br>
+        <img style="width: 65px; height: 20px;" alt=""
+ src="../../bt_salvar_au.jpg"><br>
+        </td>
+      </tr>
+      <tr>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+</form>
+<br>
+<table style="margin-left: 10px;" border="1" bordercolor="#cdcccb"
+ cellpadding="4" cellspacing="0">
+  <tbody>
+    <tr>
+<!--  <td style="font-family: Arial; font-size: 14pt; color:#FFFFFF" bgcolor=717171 align="center" width=45><small><small><small> Minutos/Horas </small></small></small></td> -->
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>
