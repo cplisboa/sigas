@@ -684,7 +684,7 @@ String botao = request.getParameter("opcao");
 				<tr>
 				  <td style="width: 98px; height: 15px;"><img style="width: 132px; height: 13px;" src="tit_controle_operacional.png"></td>
 				  <td style="width: 640px; height: 15px;"></td>
-				  <td style="text-align: right; width: 127px; height: 15px;"><img style="width: 97px; height: 26px;" src="bt_atualizar.png"></td>
+				  <td style="text-align: right; width: 127px; height: 15px;"><img style="width: 97px; height: 26px;" onclick=document.myForm.tableType.value="mensal.jsp" src="bt_atualizar.png"></td>
 				</tr>
 			  </tbody>
 			</table>
@@ -696,9 +696,9 @@ String botao = request.getParameter("opcao");
 				  <td style="width: 120px; color: rgb(255, 255, 255); background-image:url('azul_barra.jpg'); font-weight: bold;">PAR&Acirc;METROS</td>
 				  <td style="width: 90x; color: rgb(255, 255, 255); background-image:url('azul_barra.jpg');  font-weight: bold;">CORRENTE<br>(A)</td>
 				  <td style="width: 80x; color: rgb(255, 255, 255); background-image:url('azul_barra.jpg'); font-weight: bold;">N&Iacute;VEL<br>(m)</td>
-				  <td style="width: 80px; color: rgb(255, 255, 255); background-image:url('azul_barra.jpg'); font-weight: bold;">VAZ&Atilde;O</td>
-				  <td style="width: 90px; color: rgb(255, 255, 255); background-image:url('azul_barra.jpg'); font-weight: bold;">VOLUME<br>(l)</td>
-				  <td style="width: 90px; color: rgb(255, 255, 255); background-image:url('azul_barra.jpg'); font-weight: bold;">DEMANDA</td>
+				  <td style="width: 80px; color: rgb(255, 255, 255); background-image:url('azul_barra.jpg'); font-weight: bold;">VAZ&Atilde;O (m3/h)</td>
+				  <td style="width: 90px; color: rgb(255, 255, 255); background-image:url('azul_barra.jpg'); font-weight: bold;">VOLUME<br>(m3)</td>
+				  <td style="width: 90px; color: rgb(255, 255, 255); background-image:url('azul_barra.jpg'); font-weight: bold;">DEMANDA (m3)</td>
 				</tr>
 				<tr>
 				  <% if (unknownState) { %>				
@@ -763,9 +763,13 @@ String botao = request.getParameter("opcao");
 	  </tr>
 	  <tr>
 	  	  <td style="height: 27"></td>
+		  <% if (pocoSelected){ %>
 		  <td rowspan=5 style="text-align: center; background-image:url('relogio.png'); font-family: Arial; font-size: 12px; font-weight: bold; height: 117px; width: 114px;> 
 			   <div id="odometer" class="odometer"> <%=hidro%> </div>
 		  </td>
+		  <% } else { %>
+		      <td></td>
+		  <% } %>
 	  </tr>
 	  <tr>
 		
@@ -797,7 +801,7 @@ String botao = request.getParameter("opcao");
 	   </tr>
 	   <tr>
 			<% if ((code != null) && (!code.equals(""))) { %>
-				<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> Identificador do Poço (UTM Norte/Sul): <%=request.getParameter("code")%></td>
+				<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> Identificador do Poço (UTM Leste/Oeste): <%=request.getParameter("code")%></td>
 			<% } else { %>			
 				<td style="height: 27"></td>
 			<% } %>				
@@ -1007,10 +1011,206 @@ String botao = request.getParameter("opcao");
 	} catch (Exception e) {
 	    out.println("Erro na criação da página de gráficos "+e.getMessage());		
 	}
-}
 %>
 
-<br><br>	
+<table border=1  cellpadding="0" cellspacing="0" style="border-collapse: collapse; margin-left: 30px;">
+	<table style="background-image:url('tile_panel.png');border-collapse: collapse; margin-left: 10px;" border=0 cellpadding="0" cellspacing="0" >
+	    <tr>
+	       <td></td>
+	       <td height="30" colspan=2 style="font-weight: bold; font-font-family: Arial; font-size:10px; margin-left: 20px;">Selecione Item para Filtrar:</td>
+	       <td colspan=2></td>	       	       
+	    </tr>
+	    <tr>
+	       <td><input name="" src="vermelha.png"  value="nivel" height="12" type="image" width="12"></td>	       
+	       <td><input name="graf_nivel_chk" type="checkbox" <%=nivel_chk%>></td>
+	       <td style="text-align: left;">Nível (m)</td>
+	       <td><input name="data_text_start" width="20" type="text" value="<%=data_inicial_form%>"</td>
+	       <td><input name="data_text_end" width="20" type="text" value="<%=data_final_form%>"</td>
+		   <td width="20"></td>	       
+           <td rowspan=2><input name="botao_filtrar" src="bt_filtrar.jpg" value="Filtrar" height="35" type="image" width="148"></td>
+		   <td width="100"></td>	       
+           	       	       
+	    </tr>
+		<tr>
+           <td><input name="" src="azul.png"  value="nivel" height="12" type="image" width="12"></td>
+	       <td style="width="16;"><input name="graf_vazao_chk" type="checkbox" <%=vazao_chk%>> </td>
+	       <td style="text-align: left;">Vazao (m3/h)</td>
+	       <td><input name="hora_text_start" width="10" type="text" value="<%=hora_inicial_form%>"</td>
+	       <td><input name="hora_text_end" width="10" type="text" value="<%=hora_final_form%>"</td>	       	       
+	    </tr>
+		<tr>
+           <td><input name="" src="verde.png"  onclick=document.myForm.opcao.value="nivel"; value="nivel" height="12" type="image" width="12"></td>
+	       <td><input name="graf_corrente_chk" type="checkbox" <%=corrente_chk%>></td>
+	       <td style="text-align: left;">Corrente (A)</td>
+	       <td></td>
+	       <td></td>
+	    </tr>	    
+	</table>
+	<br><br>	
+
+    <%
+	//Testando Criação de gráfico
+	TimeSeries series1 = new TimeSeries("Nivel", Minute.class);
+    TimeSeries series2 = new TimeSeries("Vazao", Minute.class);
+    TimeSeries series3 = new TimeSeries("Corrente", Minute.class);
+    
+	StringTokenizer strData = new StringTokenizer(data_inicial_form, "/");	
+	String diaStr = strData.nextToken();
+	String mesStr = strData.nextToken();
+	String anoStr = strData.nextToken();
+	String data_ini = anoStr + "/" + mesStr + "/" + diaStr + " " + hora_inicial_form;
+	
+	strData = new StringTokenizer(data_final_form, "/");	
+	diaStr = strData.nextToken();
+	mesStr = strData.nextToken();
+	anoStr = strData.nextToken();
+	String data_end = anoStr + "/" + mesStr + "/" + diaStr + " " + hora_final_form;
+		
+	String QUERY_NIVEL = "SELECT * FROM sigas_pocos where codigo_str = '" + code + "' and data BETWEEN '" + data_ini+ "' and '" + data_end + "' order by data";	
+	String QUERY = "SELECT * FROM grandezas where code = '" + code + "' and data BETWEEN '" + data_ini+ "' and '" + data_end + "' order by data";
+	try {	
+	    Class.forName("org.firebirdsql.jdbc.FBDriver");    
+	    String url = "jdbc:firebirdsql:localhost/3050:c:/juper/old_site/SIGAS.GDB";
+        connection = DriverManager.getConnection (url, "sysdba", "masterkey");
+		    
+        stmt = connection.createStatement();
+
+		if(nivel_chk.equals("checked")){		
+			ResultSet rs2 = stmt.executeQuery(QUERY_NIVEL);
+			while (rs2.next()) {
+				//Pegando data
+				String data_ts = rs2.getString("DATA");
+				String dataParsing = data_ts.substring(0, data_ts.indexOf(" "));
+				strData = new StringTokenizer(dataParsing, "-");
+				int anoInt = Integer.parseInt(strData.nextToken());
+				int mesInt = Integer.parseInt(strData.nextToken());
+				int diaInt = Integer.parseInt(strData.nextToken());
+				strData = new StringTokenizer(data_ts.substring(data_ts.indexOf(" ")+1), ":");
+				int hora = Integer.parseInt(strData.nextToken());
+				int minuto = Integer.parseInt(strData.nextToken());
+				String segundoStr = strData.nextToken();
+				StringTokenizer segundoTkn = new StringTokenizer(segundoStr, ".");
+				int segundo = Integer.parseInt(segundoTkn.nextToken());
+				series1.addOrUpdate(new Minute(minuto, hora, diaInt, mesInt, anoInt), rs2.getFloat("NIVEL"));								
+			}
+		}
+		
+		if((corrente_chk.equals("checked")) || (vazao_chk.equals("checked"))){
+	        rs = stmt.executeQuery(QUERY);
+			while (rs.next()){
+				//Pegando data
+				String data_ts = rs.getString("DATA");
+				String dataParsing = data_ts.substring(0, data_ts.indexOf(" "));
+				strData = new StringTokenizer(dataParsing, "-");
+				int anoInt = Integer.parseInt(strData.nextToken());
+				int mesInt = Integer.parseInt(strData.nextToken());
+				int diaInt = Integer.parseInt(strData.nextToken());
+				//Pegando hora
+				strData = new StringTokenizer(data_ts.substring(data_ts.indexOf(" ")+1), ":");
+				int hora = Integer.parseInt(strData.nextToken());
+				int minuto = Integer.parseInt(strData.nextToken());
+				String segundoStr = strData.nextToken();
+				StringTokenizer segundoTkn = new StringTokenizer(segundoStr, ".");
+				int segundo = Integer.parseInt(segundoTkn.nextToken());
+							
+				if(vazao_chk.equals("checked")){
+					series2.addOrUpdate(new Minute(minuto, hora, diaInt, mesInt, anoInt), rs.getInt("VAZAO"));				
+				}
+				if(corrente_chk.equals("checked")){
+					series3.addOrUpdate(new Minute(minuto, hora, diaInt, mesInt, anoInt), rs.getFloat("CORRENTE"));				
+				}						
+			}
+		}		
+    } catch (Exception e){
+    	%> Erro gerando series <%=e.getMessage()%> <%
+	   
+    }    
+    
+	//final XYDataset dataset = createDataset();
+	TimeSeriesCollection dataset = new TimeSeriesCollection();
+	String yAxis = "";
+	if(nivel_chk.equals("checked")){
+		dataset.addSeries(series1);
+		yAxis+= "- Nivel ";		
+	}
+	if(vazao_chk.equals("checked")){
+		dataset.addSeries(series2);
+		yAxis+= "- Vazão ";
+		out.println("Dados de vazão em metros cúbicos / hora.<br>");
+	}
+	if(corrente_chk.equals("checked")){
+		dataset.addSeries(series3);
+		yAxis+= "- Corrente ";		
+	}
+	yAxis+= "-";
+	dataset.setDomainIsPointsInTime(true);
+	
+    //Testando código pronto
+       JFreeChart chart = ChartFactory.createTimeSeriesChart(
+            "Dados Recuperados no Período",  // title
+            "Data",             // x-axis label
+            yAxis,   // y-axis label
+            dataset,            // data
+            true,               // create legend?
+            true,               // generate tooltips?
+            false               // generate URLs?
+        );
+
+        chart.setBackgroundPaint(Color.white);
+        //chart.getCategoryPlot().getRenderer(0).setSeriesPaint(1, Color.BLUE); 
+                
+        XYPlot plot = (XYPlot) chart.getPlot();
+        plot.setBackgroundPaint(Color.lightGray);
+        plot.setDomainGridlinePaint(Color.white);
+        plot.setRangeGridlinePaint(Color.white);
+        //plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
+        plot.setDomainCrosshairVisible(true);
+        plot.setRangeCrosshairVisible(true);
+        XYItemRenderer r = plot.getRenderer();
+        if (r instanceof XYLineAndShapeRenderer) {
+            XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
+            renderer.setShapesVisible(false);
+            renderer.setShapesFilled(false);
+        }    
+	
+
+		try {	
+	   		// XYPlot plot = (XYPlot)chart.getPlot();
+	    
+	        //plot.setRenderer(renderer);
+		    //chart.setBackgroundPaint(new Color(255 , 255 , 255));	
+		
+		    final ChartPanel chartPanel = new ChartPanel(chart);
+			//final CategoryPlot plot = chart.getCategoryPlot();
+			//plot.setForegroundAlpha(0.5f);
+			
+			// Cor do fundo do grafico
+			//plot.setBackgroundPaint(new Color(159, 182, 205));
+			
+			//plot.setOutlinePaint(new Color(0,250,0));
+	    }catch (Exception e) {
+	    	%> Erro no plot <%=e.getMessage()%> <%    	
+	    }
+	    java.util.Calendar cal = Calendar.getInstance();
+		int monthInt = cal.get(Calendar.MONTH)+1;
+		String monthStr = ""+monthInt;
+		if (monthInt < 10)
+		    monthStr = "0"+monthStr;
+		//String path = "C:/Program Files/Apache Software Foundation/Tomcat 6.0/webapps/dev/"; // Path casa Cleo
+	    String path = "C:/Arquivos de programas/Apache Software Foundation/Tomcat 6.0/webapps/dev/"; //Path Juper
+		String graphDate = "graph" + cal.get(Calendar.DAY_OF_MONTH) + "-" + monthStr + "-" + cal.get(Calendar.YEAR) + ".png";
+		
+		try {				
+			final ChartRenderingInfo info = new ChartRenderingInfo(new StandardEntityCollection());
+			final File file1 = new File(path+graphDate);
+		    ChartUtilities.saveChartAsPNG(file1, chart, 900, 600, info);
+		} catch (Exception e) {
+	    	%> Erro salvando imagem do grafico <%=e.getMessage()%> <%    			
+			out.println(e);
+		}  %>
+	    <img src="<%=graphDate%>" alt="" height="600" width="900">
+
+  <%} %>
 <table bordercolor=cdcccb border="1" cellpadding="4" cellspacing="0" style="border-collapse: collapse; margin-left: 10px;">
 <tbody>
 
@@ -1087,9 +1287,9 @@ String botao = request.getParameter("opcao");
 	          			        medPrint = ""+medDias[i][j].getCorrente();	          			    
 	          			    } else if (botao.equals("volume")) {
 	          			        medPrint = ""+medDias[i][j].getVolume();	          			    
-							} else if (botao.equals("cesp")) {
+	          			    } else if (botao.equals("cesp")) {
 	          			        medPrint = ""+medDias[i][j].getCesp();	          			    
-	          			    }							
+	          			    }
 							
 	          			}%>
 	              		<td style="font-family: Arial;" bgcolor=fffffd align="center" width=45><small><small><small> <%=medPrint%> </small></small></small></td>                  	         	         	 

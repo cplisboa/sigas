@@ -138,13 +138,13 @@
 					<% if(user.equals("SIGAS")) { %>
 						<option value="view_clientes.jsp">Empresas</option>	
 					<% } %>			
-					<% if(!acesso.equals("Usuario") && !acesso.equals("Superintendente")) { %>
+					<% if(!acesso.equals("Usuario") && !acesso.equals("Gerente")) { %>
 						<option value="sistema.jsp">Sistemas</option>	
 					<% } %>			
-					<% if(!acesso.equals("Usuario")) { %>						
+					<% if(!acesso.equals("Usuario")) { %>
 						<option value="poco.jsp">Poços</option>						
 					<% } %>			
-					<% if(!acesso.equals("Usuario") && !acesso.equals("Superintendente")) { %>						
+					<% if(!acesso.equals("Usuario") && !acesso.equals("Gerente")) { %>						
 						<option value="user.jsp">Usuários</option>						
 					<% } %>
 					<% if(user.equals("SIGAS")) { %>
@@ -171,7 +171,7 @@
 <input type="text" hidden="true" name="pocoNumber" id="pocoNumber" value="" />
 <table border=1 cellspacing=0>    
 	<tr>    
-		<td onclick="resetTds(); this.style.background='yellow';"><input type="image" src="bt_confi_up.jpg" alt="Configurações" name="acess" id="acess" value="mensal.jsp" width="185" height="32"></td>
+		<td onclick="resetTds(); this.style.background='yellow';"><input type="image" src="bt_confi_up.jpg" alt="Configurações" name="acess" id="acess" value="configuracoes.jsp" width="185" height="32"></td>
 	</tr>
 	<tr>    
 		<td onclick="resetTds(); this.style.background='yellow';"><input type="image" src="bt_pesquisa_up.jpg" name="acess" id="acess" value="pesquisa.jsp"  width="185" height="32"><br></td>

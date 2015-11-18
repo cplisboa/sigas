@@ -104,16 +104,17 @@
 		String tuser = request.getParameter("tuser");
 		String tacesso = "";
 		if((tnome != null) && (!update) && (!remove)){
-			//Fazer apenas o insert
+			//Fazer apenas o insert (se nao tentaram inserir um diretor)
 			tacesso = request.getParameter("tacesso");
-			if ((tacesso.equals("diretor")) && (!tnome.equals("SIGAS"))){
+			if (tacesso.equals("Diretor")) {
 			%>
 			   <font style="font-size: 16px; text-align: center; color: #101010; font-family: Arial; margin-left: 10px;">Apenas administradores podem cadastrar um diretor </font><br>    	
 			<%			
 			} else {				
 				String tsenha = request.getParameter("tsenha");
 				String tempresa = empresa;
-				String ttelefone = request.getParameter("ttelefone");    					
+				String ttelefone = request.getParameter("ttelefone");    	
+				tacesso = request.getParameter("tacesso");    	
 				try {	
 			
 					Class.forName("org.firebirdsql.jdbc.FBDriver");    
@@ -123,7 +124,7 @@
 					if ((btnAtualizar!=null) && (btnAtualizar.equals("Cadastrar"))) {
 						try{ // Gera a Query para o banco 
 							String insertString = "insert into usuario values ('"+tnome+"','"+tuser+"','"+tsenha+"','"+tempresa+"','"+ttelefone+"','"+tacesso+"',"+id_empresa+")"; 
-							out.println(insertString+"<br>");	
+							//out.println(insertString+"<br>");	
 							smtp = connection.createStatement(); 
 							smtp.executeUpdate(insertString);			
 							smtp.close(); 
@@ -167,7 +168,6 @@
 						telefone=list[i].getTelefone();
 						passwd=list[i].getSenha();
 						acesso=list[i].getAcesso();
-						out.println(usuario+" tem acesso " + acesso);
 						if(acesso==null)
 							acesso="Usuario";
 					}

@@ -5,7 +5,6 @@
 <html>
 <body>
 <form id="myForm" name="myForm" action="nivel.jsp" method="GET">
-
 Data Inicial: <input type="text" id="dataIni" name="dataIni">  Data Final: <input type="text" id="dataFim" name="dataFim">
 <input type="submit">
 
@@ -42,7 +41,7 @@ try {
 			
 			stmt = connection.createStatement();
 			
-			String query = "select distinct data, nivel from sigas_pocos where codigo_str = '"+code+"'"
+			String query = "select distinct (data), nivel from sigas_pocos where codigo_str = '"+code+"'"
 				+ " and data > '"+formIni+"' and data < '"+formFim+"'"
 				+ " order by data desc";
 				
@@ -78,7 +77,7 @@ try {
 			%>Erro executando inserção na base. <%=sqlex.getMessage()%><% 
 		}
 	} else {%>
-		<h2> Entre com data inicial e data final para a pesquisa, no formato dd/mm/yyyy</h2>
+		<h2> Entre com data-hora inicial e data-hora final para a pesquisa, no formato dd/mm/yyyy hh:mm:ss</h2>
 	<%}
 } catch (Exception e){ // Erro ao executar a Query no banco 
 	%>Erro conectando a base. <% 
