@@ -172,10 +172,11 @@
 		<input type="text" hidden="true" id="action" name="action" value="1" />	
 		<input type="text" hidden="true" id="id_sistema" name="id_sistema" value="" />	
 		<input type="text" hidden="true" id="pocoToEdit" name="pocoToEdit" value="" />	
-		<table style="margin-left: 20px; height: 31px; width: 400px;" border="1" cellpadding="0" cellspacing="0">
+		
 		<%
 		Database db = new Database();					
-		if(sistList!=null) { %>
+		if((sistList!=null) && (sistList.length > 0)){ %>
+			<table style="margin-left: 20px; height: 31px; width: 400px;" border="1" cellpadding="0" cellspacing="0">		
 			<tbody>
 			  <tr>
 				<th> SISTEMA </th>

@@ -6,57 +6,58 @@
 <html>
 <head>  
 	<script>
-	function edit(str) {
-		if (str=="SIGAS") {
-			alert("O usuário SIGAS não pode ser editado.");
-			return;
-		} 
-		document.getElementById("userToEdit").value = str;
-		document.getElementById("action").value = "2";
-		document.forms["myForm"].submit();		
-	}
-
-	function apaga(str) {
-		if (str=="SIGAS") {
-			alert("O usuário SIGAS não pode ser removido.");
-			return;
-		} 
-		
-		if (confirm("Você tem certeza que deseja remover o usuário "+str+"?")) {
+		function edit(str) {
+			if (str=="SIGAS") {
+				alert("O usuário SIGAS não pode ser editado.");
+				return;
+			} 
 			document.getElementById("userToEdit").value = str;
-			document.getElementById("action").value = "3";			
+			document.getElementById("action").value = "2";
 			document.forms["myForm"].submit();		
 		}
-	}	
 	
-	function valida() {		
-		var nome = myForm.tnome.value;
-		var user = myForm.tuser.value;
-		var senha = myForm.tsenha.value;
-		var telefone = myForm.ttelefone;
-		if (nome == "") {
-			alert('Preencha o campo com nome completo do usuário'); 
-			myForm.tnome.focus(); 
-			return false;
+		function apaga(str) {
+			if (str=="SIGAS") {
+				alert("O usuário SIGAS não pode ser removido.");
+				return;
+			} 
+			
+			if (confirm("Você tem certeza que deseja remover o usuário "+str+"?")) {
+				document.getElementById("userToEdit").value = str;
+				document.getElementById("action").value = "3";			
+				document.forms["myForm"].submit();		
+			}
+		}	
+		
+		function valida() {		
+			var nome = myForm.tnome.value;
+			var user = myForm.tuser.value;
+			var senha = myForm.tsenha.value;
+			var telefone = myForm.ttelefone;
+			if (nome == "") {
+				alert('Preencha o campo com nome completo do usuário'); 
+				myForm.tnome.focus(); 
+				return false;
+			}
+			if (user == "") {
+				alert('Preencha o campo com o nome do usuário no sistema'); 
+				myForm.tuser.focus(); 
+				return false;
+			}
+			if (senha == "") {
+				alert('Preencha o campo a senha do usuário'); 
+				myForm.tsenha.focus(); 
+				return false;
+			}
+			if (telefone == "") {
+				alert('Preencha o campo com o telefone do usuário'); 
+				myForm.ttelefone.focus(); 
+				return false;
+			}		
+			document.getElementById("botao").value = document.getElementById("botao").value;
+			document.getElementById("userToEdit").value = myForm.userToEdit.value;
+			document.forms["myForm"].submit();				
 		}
-		if (user == "") {
-			alert('Preencha o campo com o nome do usuário no sistema'); 
-			myForm.tuser.focus(); 
-			return false;
-		}
-		if (senha == "") {
-			alert('Preencha o campo a senha do usuário'); 
-			myForm.tsenha.focus(); 
-			return false;
-		}
-		if (telefone == "") {
-			alert('Preencha o campo com o telefone do usuário'); 
-			myForm.ttelefone.focus(); 
-			return false;
-		}		
-		document.getElementById("botao").value = document.getElementById("botao").value;;
-		document.forms["myForm"].submit();				
-	}
 	</script>
 </head>
 
@@ -90,6 +91,7 @@
 		HttpSession sessao = request.getSession(true);  
 		int id_empresa = (Integer) sessao.getAttribute("id_empresa");
 		String empresa = (String) sessao.getAttribute("empresa");
+		String perfil = (String) sessao.getAttribute("acesso");
 		String userToEdit = request.getParameter("userToEdit");
 		String btnAtualizar = request.getParameter("btnType");
 		//out.println("BtnAtualizar: "+btnAtualizar+"<br>");
@@ -106,14 +108,19 @@
 		if((tnome != null) && (!update) && (!remove)){
 			//Fazer apenas o insert (se nao tentaram inserir um diretor)
 			tacesso = request.getParameter("tacesso");
-			if (tacesso.equals("Diretor")) {
-			%>
-			   <font style="font-size: 16px; text-align: center; color: #101010; font-family: Arial; margin-left: 10px;">Apenas administradores podem cadastrar um diretor </font><br>    	
-			<%			
+			/*out.println("Perfil: "+perfil+"<br>");
+			out.println("tacesso: "+tacesso+"<br>");
+			out.println("tuser: "+tuser+"<br>");
+			out.println("userToEdit: "+userToEdit+"<br>");*/
+			if ((tacesso.equals("Diretor")) && (!tacesso.equals("Diretor"))) {
+				//Alguém que não é diretor está tentando cadastrar um diretor
+				%>
+				   <font style="font-size: 16px; text-align: center; color: #101010; font-family: Arial; margin-left: 10px;">Apenas administradores podem cadastrar um diretor </font><br>    	
+				<%			
 			} else {				
 				String tsenha = request.getParameter("tsenha");
 				String tempresa = empresa;
-				String ttelefone = request.getParameter("ttelefone");    	
+				String ttelefone = request.getParameter("ttelefone");
 				tacesso = request.getParameter("tacesso");    	
 				try {	
 			
@@ -138,7 +145,8 @@
 						//Fazer aqui a atualização, já temos todos os campos aqui
 						try {
 							//out.println("Eh atualização, vai só update<br>");
-							String updateStr = "update usuario set nome='"+tnome+"', senha='"+tsenha+"', empresa='"+tempresa+"', telefone='"+ttelefone+"', acesso='"+tacesso+"' where usuario='"+tuser+"'"; 
+							String updateStr = "update usuario set nome='"+tnome+"', usuario='"+tuser+"', senha='"+tsenha+"', empresa='"+tempresa+"', telefone='"+ttelefone+"', acesso='"+tacesso+"' where usuario='"+userToEdit+"'";
+							//out.println(updateStr);
 							smtp = connection.createStatement(); 
 							smtp.executeUpdate(updateStr);			
 							smtp.close(); 
@@ -263,10 +271,12 @@
 		</table>
 		<br>
 		<% if(update){ %>
-			<input style="margin-left: 185px;" onclick="valida();" name="botao" id="botao" type="button" value="Atualizar">		
+			<input style="margin-left: 185px;" onclick="valida();" name="botao" id="botao" type="button" value="Atualizar">
+			<input type="text" hidden="true" id="userToEdit" name="userToEdit" value="<%=request.getParameter("userToEdit")%>" />		
 		<% } else { 
 			//Verifica se já não superou a quantidade de usuários para possibilidade de novos cadastros
 			if (!superou) { %>
+			<input type="text" hidden="true" id="userToEdit" name="userToEdit" value="" />
 			<input type="text" hidden="true" name="btnType" id="btnType" value="Cadastrar" />		
 			<input style="margin-left: 185px;" onclick="valida();" name="botao" id="botao" type="button" value="Cadastrar">
 			<% } 
@@ -279,7 +289,7 @@
     </tr>
    </table>
 	 
-  <input type="text" hidden="true" id="userToEdit" name="userToEdit" value="" />					
+  					
   <input type="text" hidden="true" id="action" name="action" value="1" />					
   <table style="margin-left: 20px; height: 31px; width: 400px;" border="1" cellpadding="0" cellspacing="0">
     <tbody>

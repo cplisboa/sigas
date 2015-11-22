@@ -140,7 +140,7 @@
 			<input type="text" hidden="true" id="sysToEdit" name="sysToEdit" value="" />	
 			<%
 			//Database db = new Database();					
-			if(sysList!=null) { %>
+			if ((sysList.length + 1) > emp.getNum_sistemas()) { %>
 				<table class="table table-striped" style="margin-left: 20px; height: 31px; width: 400px;" cellpadding="0" cellspacing="0">
 				<tbody>
 				  <tr>
