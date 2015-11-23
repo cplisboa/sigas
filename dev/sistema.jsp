@@ -31,8 +31,7 @@
 <body bgcolor="" style="margin-left: 15px; margin-top: 0px; margin-right: 0px;margin-bottom: 0px;">		
 
 	<br>	
-	<%	
-		HttpSession sessao = request.getSession(true);  
+	<%	HttpSession sessao = request.getSession(true);  
 		String empresa = (String) sessao.getAttribute("empresa");
 		int id_empresa = (Integer) sessao.getAttribute("id_empresa");
 		String sysName = request.getParameter("sysToEdit");
