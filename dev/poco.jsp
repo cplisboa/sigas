@@ -85,7 +85,7 @@
 	emp.setEmpresa(id_empresa);	
 	int numPocosPossiveis = emp.getNum_pocos();
 	int pocosCadastrados = Poco.numPocos(id_empresa);
-	out.println("Numero de poços possíveis para a empresa: "+numPocosPossiveis+"<br>");
+	//out.println("Numero de poços possíveis para a empresa: "+numPocosPossiveis+"<br>");
 	out.println("Numero de poços já cadastrados: "+pocosCadastrados+"<br>");
 	if(pocosCadastrados >= numPocosPossiveis) {
 		out.println("Empresa já possui " + pocosCadastrados + " de um total de " + numPocosPossiveis + " Poços liberados. Contate o administrados para liberar mais poços.<br><br>");
@@ -97,9 +97,9 @@
 			String utmNorte = request.getParameter("utmNorte");
 			String utmLeste = request.getParameter("utmLeste");
 
-			out.println(tSistema);
-			out.println(tsuperin);
-			out.println(utmNorte);
+			//out.println(tSistema);
+			//out.println(tsuperin);
+			//out.println(utmNorte);
 			boolean result=false;
 			try {	
 				result = dr.createPocoSlim(tnome, Integer.parseInt(tSistema), tsuperin, utmNorte, utmLeste);
