@@ -194,7 +194,7 @@
 		}
 		list = User.getUserList(id_empresa);
 		if(list.length >= numUsers) {
-			out.println("<br>A empresa "+empresa+" já possui "+list.length+ " cadastrados de um total de "+numUsers+" usuários disponíveis.<br>");
+			out.println("<br>A empresa "+empresa+" já possui "+list.length+ " cadastrados de um total de "+numUsers+".<br>");
 			out.println("Não será mais possível cadastrar novos usuários, apenas atualizá-los ou deletá-los.<br>");
 			superou=true;
 		}		
@@ -232,31 +232,30 @@
 			<td style="background-image:url('linha02.jpg');font-size: 12px; text-align: left; color: #101010; font-family: Arial; font-weight: bold; ">Acesso:</td> 
 			<td>
 				<select size="1" name="tacesso">
-					<%
-					
-					if ( (acesso.equals("")) || (acesso.equals("Usuario"))){  %>				
-						<option selected value="Usuario">Usuário</option>
+
+					<% if (acesso.equals("Diretor")){ %>				
+						<option selected value="Diretor">Diretor</option>
 					<% } else { %>
-						<option value="Usuario">Usuário</option>
-					<% } %>
-					
-					<% if (acesso.equals("Gerente")){ %>				
-						<option selected value="Gerente">Gerente</option>
-					<% } else { %>
-						<option value="Gerente">Gerente</option>
-					<% } %>
+						<option value="Diretor">Diretor</option>						
+					<% } %>						
 
 					<% if (acesso.equals("Superintendente")){ %>				
 						<option selected value="Superintendente">Superintendente</option>
 					<% } else { %>
 						<option value="Superintendente">Superintendente</option>
 					<% } %>
-						
-					<% if (acesso.equals("Diretor")){ %>				
-						<option selected value="Diretor">Diretor</option>
+
+					<% if (acesso.equals("Gerente")){ %>				
+						<option selected value="Gerente">Gerente</option>
 					<% } else { %>
-						<option value="Diretor">Diretor</option>						
-					<% } %>						
+						<option value="Gerente">Gerente</option>
+					<% } %>
+					
+					<% if ( (acesso.equals("")) || (acesso.equals("Usuario"))){  %>				
+						<option selected value="Usuario">Usuário</option>
+					<% } else { %>
+						<option value="Usuario">Usuário</option>
+					<% } %>					
 				</select>			
 			</td>			
 		</tr>			

@@ -101,7 +101,7 @@
 						smtp.close();   %>
 						<script> 
 							alert("Sistema <%=nome%> cadastrado com sucesso!");
-							window.open("menu.jsp","menu");	
+							window.location = "sistema.jsp";	
 						</script>
 						
 						<%						
