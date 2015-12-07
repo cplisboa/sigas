@@ -1290,7 +1290,6 @@ String botao = request.getParameter("opcao");
 	          			    } else if (botao.equals("cesp")) {
 	          			        medPrint = ""+medDias[i][j].getCesp();	          			    
 	          			    }
-							
 	          			}%>
 	              		<td style="font-family: Arial;" bgcolor=fffffd align="center" width=45><small><small><small> <%=medPrint%> </small></small></small></td>                  	         	         	 
 	          		<% } %>
