@@ -146,10 +146,7 @@
 					<% } %>			
 					<% if(!acesso.equals("Usuario") && !acesso.equals("Gerente")) { %>						
 						<option value="user.jsp">Usuários</option>						
-					<% } %>
-					<% if(user.equals("SIGAS")) { %>
-						<option value="testes.jsp">Ver Dados Brutos</option>	
-					<% } %>			
+					<% } %>	
 			   </optgroup>
 			</select>			
 		</td></tr>
