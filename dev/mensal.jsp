@@ -1074,7 +1074,6 @@ String botao = request.getParameter("opcao");
 
     <%
 	//Testando Criação de gráfico
-	/*
 	TimeSeries series1 = new TimeSeries("Nivel", Minute.class);
     TimeSeries series2 = new TimeSeries("Vazao", Minute.class);
     TimeSeries series3 = new TimeSeries("Corrente", Minute.class);
@@ -1219,8 +1218,8 @@ String botao = request.getParameter("opcao");
 		String monthStr = ""+monthInt;
 		if (monthInt < 10)
 		    monthStr = "0"+monthStr;
-		String path = "C:/Program Files/Apache Software Foundation/Tomcat 6.0/webapps/dev/"; // Path casa Cleo
-	    //String path = "C:/Arquivos de programas/Apache Software Foundation/Tomcat 6.0/webapps/dev/"; //Path Juper
+		//String path = "C:/Program Files/Apache Software Foundation/Tomcat 6.0/webapps/dev/"; // Path casa Cleo
+	    String path = "C:/Arquivos de programas/Apache Software Foundation/Tomcat 6.0/webapps/dev/"; //Path Juper
 		String graphDate = "graph" + cal.get(Calendar.DAY_OF_MONTH) + "-" + monthStr + "-" + cal.get(Calendar.YEAR) + ".png";
 		
 		try {				
@@ -1230,9 +1229,8 @@ String botao = request.getParameter("opcao");
 		} catch (Exception e) {
 	    	%> Erro salvando imagem do grafico <%=e.getMessage()%> <%    			
 			out.println(e);
-		} */ %>
-	    <img src="" alt="" height="600" width="900">
-
+		}  %>
+	    <img src="<%=graphDate%>" alt="" height="600" width="900">
 
   <%} %>
 <table bordercolor=cdcccb border="1" cellpadding="4" cellspacing="0" style="border-collapse: collapse; margin-left: 10px;">
