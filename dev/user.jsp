@@ -5,6 +5,8 @@
 
 <html>
 <head>  
+	<link href="css/bootstrap.css" rel="stylesheet" />
+	<link href="css/bootstrap-theme.css" rel="stylesheet" />	
 	<script>
 		function edit(str) {
 			if (str=="SIGAS") {
@@ -92,6 +94,7 @@
 		int id_empresa = (Integer) sessao.getAttribute("id_empresa");
 		String empresa = (String) sessao.getAttribute("empresa");
 		String perfil = (String) sessao.getAttribute("acesso");
+		String usuarioLogado = (String) sessao.getAttribute("tnome");
 		String userToEdit = request.getParameter("userToEdit");
 		String btnAtualizar = request.getParameter("btnType");
 		//out.println("BtnAtualizar: "+btnAtualizar+"<br>");
@@ -112,10 +115,17 @@
 			out.println("tacesso: "+tacesso+"<br>");
 			out.println("tuser: "+tuser+"<br>");
 			out.println("userToEdit: "+userToEdit+"<br>");*/
-			if ((tacesso.equals("Diretor")) && (!tacesso.equals("Diretor"))) {
+			
+			if ( ( perfil.equals("Gerente") && (tacesso.equals("Diretor") || tacesso.equals("Superintendente"))) 
+				|| ( perfil.equals("Superintendente") && tacesso.equals("Diretor")))
+			{
+				%>
+				   <p class="text-danger"> Você não tem permissão para cadastrar um <%=tacesso%> </p>    	
+				<%							
+			} else if ((tacesso.equals("Diretor")) && (!usuarioLogado.equals("SIGAS"))) {
 				//Alguém que não é diretor está tentando cadastrar um diretor
 				%>
-				   <font style="font-size: 16px; text-align: center; color: #101010; font-family: Arial; margin-left: 10px;">Apenas administradores podem cadastrar um diretor </font><br>    	
+				   <p class="text-danger">Apenas administradores podem cadastrar um diretor </p>    	
 				<%			
 			} else {				
 				String tsenha = request.getParameter("tsenha");
@@ -136,10 +146,10 @@
 							smtp.executeUpdate(insertString);			
 							smtp.close(); 
 							%>
-								<font style="font-size: 16px; text-align: center; color: #101010; font-family: Arial; margin-left: 10px;">Usuário <%=tnome%> cadastrado com sucesso! </font><br>    	
+								<p class="text-success">Usuário <%=tnome%> cadastrado com sucesso! </p>    	
 							<%
 						} catch (SQLException sqlex){ // Erro ao executar a Query no banco 
-							%>Erro executando inserção na base. <%=sqlex.getMessage()%><% 
+							%> <p class="text-danger"> Erro executando inserção na base. <%=sqlex.getMessage()%>  </p><% 
 						}					
 					} else {
 						//Fazer aqui a atualização, já temos todos os campos aqui
@@ -151,7 +161,7 @@
 							smtp.executeUpdate(updateStr);			
 							smtp.close(); 
 							%>
-								<font style="font-size: 16px; text-align: center; color: #101010; font-family: Arial; margin-left: 10px;">Usuário <%=tnome%> atualizado com sucesso! </font><br>    	
+								<p class="text-success"> Usuário <%=tnome%> atualizado com sucesso! </p>    	
 							<%							
 						} catch (SQLException sqlex){ // Erro ao executar a Query no banco 
 							%>Erro executando update de usuario. <%=sqlex.getMessage()%><% 
@@ -166,39 +176,56 @@
 			if ((btnAtualizar!=null) && (btnAtualizar.equals("Atualizar"))) {
 				%> Deveria agora estar atualizando... <br> <%
 			} else {
-				// Preparar Campos para Update e deixar opção de botão update habilitado
-				list = User.getUserList(id_empresa);	
-				for(int i=0; i<list.length; i++) {
-					//Percorre lista para conseguir dados do usuário correto
-					if(list[i].getUsuario().equals(userToEdit)) {
-						nome=list[i].getNome();
-						usuario=list[i].getUsuario();
-						telefone=list[i].getTelefone();
-						passwd=list[i].getSenha();
-						acesso=list[i].getAcesso();
-						if(acesso==null)
-							acesso="Usuario";
-					}
-				}			
+			
+				if ( ( perfil.equals("Gerente") && (tacesso.equals("Diretor") || tacesso.equals("Superintendente"))) 
+					|| ( perfil.equals("Superintendente") && tacesso.equals("Diretor")))
+				{
+					%>
+					   <p class="text-danger"> Você não tem permissão para atualizar um <%=tacesso%> </p>    	
+					<%							
+				} else {
+					// Preparar Campos para Update e deixar opção de botão update habilitado
+					list = User.getUserList(id_empresa);	
+					for(int i=0; i<list.length; i++) {
+						//Percorre lista para conseguir dados do usuário correto
+						if(list[i].getUsuario().equals(userToEdit)) {
+							nome=list[i].getNome();
+							usuario=list[i].getUsuario();
+							telefone=list[i].getTelefone();
+							passwd=list[i].getSenha();
+							acesso=list[i].getAcesso();
+							if(acesso==null)
+								acesso="Usuario";
+						}
+					}			
+				}
 			}
 		} else if (remove) {
-			Class.forName("org.firebirdsql.jdbc.FBDriver");    
-			String url = "jdbc:firebirdsql:localhost/3050:c:/juper/old_site/SIGAS.GDB";
-			connection = DriverManager.getConnection (url, "sysdba", "masterkey");
-				
-			try{ // Gera a Query para o banco 
-				String sql = "delete from usuario where usuario='"+userToEdit+"'"; 
-				//out.println(insertString+"<br>");	
-				smtp = connection.createStatement(); 
-				smtp.executeUpdate(sql);			
-				smtp.close(); 
-				%>
-					<font style="font-size: 16px; text-align: center; color: #101010; font-family: Arial; margin-left: 10px;">Usuário <%=userToEdit%> removido com sucesso! </font><br>    	
-				<%
-			} catch (SQLException sqlex){ // Erro ao executar a Query no banco 
-				%>Erro executando remoção de usuario na base. <%=sqlex.getMessage()%><% 
-			}					
 		
+			if ( ( perfil.equals("Gerente") && (tacesso.equals("Diretor") || tacesso.equals("Superintendente"))) 
+				|| ( perfil.equals("Superintendente") && tacesso.equals("Diretor")))
+			{
+				%>
+				   <p class="text-danger"> Você não tem permissão para remover um <%=tacesso%> </p>    	
+				<%							
+			} else {		
+				Class.forName("org.firebirdsql.jdbc.FBDriver");    
+				String url = "jdbc:firebirdsql:localhost/3050:c:/juper/old_site/SIGAS.GDB";
+				connection = DriverManager.getConnection (url, "sysdba", "masterkey");
+					
+				try{ // Gera a Query para o banco 
+					String sql = "delete from usuario where usuario='"+userToEdit+"'"; 
+					//out.println(insertString+"<br>");	
+					smtp = connection.createStatement(); 
+					smtp.executeUpdate(sql);			
+					smtp.close(); 
+					%>
+						<p class="text-success"> Usuário <%=userToEdit%> removido com sucesso! </font><br>    	
+					<%
+				} catch (SQLException sqlex){ // Erro ao executar a Query no banco 
+					%>Erro executando remoção de usuario na base. <%=sqlex.getMessage()%><% 
+				}					
+			}
 		}
 		list = User.getUserList(id_empresa);
 		if(list.length >= numUsers) {
@@ -291,7 +318,7 @@
 	 
   					
   <input type="text" hidden="true" id="action" name="action" value="1" />					
-  <table style="margin-left: 20px; height: 31px; width: 400px;" border="1" cellpadding="0" cellspacing="0">
+  <table style="margin-left: 20px;" border="1" cellpadding="0" cellspacing="0">
     <tbody>
 	  <tr>
 		<th> Nome</th>
@@ -302,12 +329,12 @@
 	  <%
 		for(int i=0; i<list.length; i++) { %>
 			<tr>
-				<td style="height: 20px; width: 150px;"> <%=list[i].getNome()%> </td>				
-				<td style="height: 20px; width: 80px;"> <%=list[i].getUsuario()%> </td>
-				<td style="height: 21px; width: 60px; text-align:center;">
+				<td style="height: 25px; width: 300px;"> <%=list[i].getNome()%> </td>				
+				<td style="height: 25px; width: 150px;"> <%=list[i].getUsuario()%> </td>
+				<td style="height: 25px; width: 80px; text-align:center;">
 					<input name="editImg" id="editImg" alt="Editar" value="Editar" onclick="edit('<%=list[i].getUsuario()%>')" type="button">
 				</td>
-				<td style="height: 21px; width: 60px; text-align:center;">
+				<td style="height: 25px; width: 80px; text-align:center;">
 					<input name="removeBtn" id="removeBtn" alt="Remover" value="Remover" onclick="apaga('<%=list[i].getUsuario()%>')" type="button">
 				</td>
 				

@@ -871,21 +871,34 @@ String botao = request.getParameter("opcao");
 	            <td><input name="opcao" src="corrente_up.jpg"  onclick=document.myForm.opcao.value="corrente" value="corrente" height="42" type="image" width="81"></td>
 		 <% } 
 	         if (botao.equals("volume")) {%>
-		    <td><input name="opcao" src="volume_down.jpg" onclick=document.myForm.opcao.value="volume" value="volume" height="42" type="image" width="86"></td>
+				<td><input name="opcao" src="volume_down.jpg" onclick=document.myForm.opcao.value="volume" value="volume" height="42" type="image" width="86"></td>
 	         <% } else  { %>
 	            <td><input name="opcao" src="volume_up.jpg" onclick=document.myForm.opcao.value="volume" value="volume" height="42" type="image" width="86"></td>
-		 <% } 
-	
-	         if (botao.equals("demanda")) {%>
-	            <td><input name="opcao" src="demanda_down.jpg" onclick=document.myForm.opcao.value="demanda" value="demanda" height="42" type="image" width="90"></td>
-	         <% } else  { %>
-	            <td><input name="opcao" src="demanda_up.jpg" onclick=document.myForm.opcao.value="demanda" value="demanda" height="42" type="image" width="90"></td>
-		 <% } 
-	         if (botao.equals("jornada")) {%>
-	            <td><input name="opcao" src="jornada_down.jpg" onclick=document.myForm.opcao.value="jornada" value="jornada" height="42" type="image" width="97"></td>
-	         <% } else  { %>
-	            <td><input name="opcao" src="jornada_up.jpg" onclick=document.myForm.opcao.value="jornada" value="jornada" height="42" type="image" width="97"></td>
-		 <% } 
+			<% } 
+			 if (tableType.equals("mensal")) {			
+				 // Nivel Max, nivel min, jornada e demanda só estão disponíveis para dados mensais
+				 if (botao.equals("nivelMax")) {%>
+					<td><input name="opcao" src="nivelMax_down.jpg" onclick=document.myForm.opcao.value="nivelMax" value="nivelMax" height="42" type="image" width="90"></td>
+				 <% } else  { %>
+					<td><input name="opcao" src="nivelMax_up.jpg" onclick=document.myForm.opcao.value="nivelMax" value="nivelMax" height="42" type="image" width="90"></td>
+				 <% } 
+				 if (botao.equals("nivelMin")) {%>
+					<td><input name="opcao" src="nivelMin_down.jpg" onclick=document.myForm.opcao.value="nivelMin" value="nivelMin" height="42" type="image" width="90"></td>
+				 <% } else  { %>
+					<td><input name="opcao" src="nivelMin_up.jpg" onclick=document.myForm.opcao.value="nivelMin" value="nivelMin" height="42" type="image" width="90"></td>
+				 <% } 
+					
+				 if (botao.equals("demanda")) {%>
+					<td><input name="opcao" src="demanda_down.jpg" onclick=document.myForm.opcao.value="demanda" value="demanda" height="42" type="image" width="90"></td>
+				 <% } else  { %>
+					<td><input name="opcao" src="demanda_up.jpg" onclick=document.myForm.opcao.value="demanda" value="demanda" height="42" type="image" width="90"></td>
+			     <% } 
+				 if (botao.equals("jornada")) {%>
+					<td><input name="opcao" src="jornada_down.jpg" onclick=document.myForm.opcao.value="jornada" value="jornada" height="42" type="image" width="97"></td>
+				 <% } else  { %>
+					<td><input name="opcao" src="jornada_up.jpg" onclick=document.myForm.opcao.value="jornada" value="jornada" height="42" type="image" width="97"></td>
+			     <% } 
+			 }
 	         if (botao.equals("cesp")) {%>
 	            <td><input name="opcao" src="cesp_down.jpg" onclick=document.myForm.opcao.value="cesp" value="cesp" height="42" type="image" width="90"></td>
 	         <% } else  { %>
@@ -918,64 +931,74 @@ String botao = request.getParameter("opcao");
   String[] arrayDias = new String[30];
   Medida[][] medDias = null;
   float[][] arrayMediaDia = new float[30][24];  //30 dias e 24 horas
-  float[][] arrayMediaMes = new float[13][32];  //12 meses e 31 dias
+  float[][] arrayMes = new float[13][32];  //12 meses e 31 dias
 
   if(data==null){ %>
 	  Sim, StartDate é null
   <%}
 
-
-  String nivel = "";
-  String valor = "";
+	DataRequester dr = new DataRequester("jdbc:firebirdsql:localhost/3050:C:/juper/old_site/SIGAS.GDB");
+	String nivel = "";
+	String valor = "";
   if (tableType.equals("diaria")) {
 		   
-		DataRequester dr = new DataRequester("jdbc:firebirdsql:localhost/3050:C:/juper/old_site/SIGAS.GDB");
+		
 		medDias = dr.daysData(data, code, botao);
 	  
-
   } else if (tableType.equals("mensal")) {
-	StringTokenizer strData = new StringTokenizer(data, "/");	
-	strData.nextToken(); //Passa o token dia
-	strData.nextToken(); //passa do token mes
-	anoAnual = Integer.parseInt(strData.nextToken()); //pega o ano
-    
-	String query = "select " + botao + ",data from grandezas "
-		+ " where code = '" + code + "'" 
-		+ " and data BETWEEN '01/01/" + anoAnual + " 00:00:00' and '12/31/" + anoAnual + " 23:59:59'";
-		//+ " and " + botao +
-		//+ " order by data";
+	if(botao.equals("nivelMin")) {
+		arrayMes = dr.nivelAgrupadoMes(data, "min", code);
+	} else if (botao.equals("nivelMax")) {
+		arrayMes = dr.nivelAgrupadoMes(data, "max", code);
+	} else if (botao.equals("jornada")) {
+		arrayMes = dr.jornada(data, code);
+	} else if (botao.equals("demanda")) {
+		arrayMes = dr.demanda(data, code);
+	} else {
+		// Apenas agregacao esta sendo calculada no servlet
+		StringTokenizer strData = new StringTokenizer(data, "/");	
+		strData.nextToken(); //Passa o token dia
+		strData.nextToken(); //passa do token mes
+		anoAnual = Integer.parseInt(strData.nextToken()); //pega o ano
 		
-	try {	
-		//out.println(query+"<br>");	
-		connection = DriverManager.getConnection (url, "sysdba", "masterkey");
-	    stmt = connection.createStatement();
-	    rs = stmt.executeQuery(query);
-	    float floatValue=0;
-	    while (rs.next()){				
-			%> <!-- No rs <br> --><%				
-			String diaString = rs.getString("DATA");
-			//out.println(diaString+"<br>");
-	    	strData = new StringTokenizer(diaString, "-");
-			int ano = Integer.parseInt(strData.nextToken());
-			int mes = Integer.parseInt(strData.nextToken());
-			String dayParcial = strData.nextToken();
-			//out.println(dayParcial+"<br>");
-			String dayFinal = dayParcial.substring(0, dayParcial.indexOf(" "));
-			int dia = Integer.parseInt(dayFinal);
-				
-		    if(botao.equals("nivel"))
-		        floatValue = rs.getFloat("NIVEL");
-	        else if (botao.equals("vazao"))
-		        floatValue = rs.getFloat("VAZAO");
-		    if(floatValue > 0){
-				//out.println("["+ mes +"]"+"["+ dia +"]"+floatValue+"<br>");
-		    	arrayMediaMes[mes][dia]= floatValue;
-		    }
+		String query = "select " + botao + ",data from grandezas "
+			+ " where code = '" + code + "'" 
+			+ " and data BETWEEN '01/01/" + anoAnual + " 00:00:00' and '12/31/" + anoAnual + " 23:59:59'";
+			//+ " and " + botao +
+			//+ " order by data";
+		
+		try {	
+			//out.println(query+"<br>");	
+			connection = DriverManager.getConnection (url, "sysdba", "masterkey");
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(query);
+			float floatValue=0;
+			while (rs.next()){				
+				%> <!-- No rs <br> --><%				
+				String diaString = rs.getString("DATA");
+				//out.println(diaString+"<br>");
+				strData = new StringTokenizer(diaString, "-");
+				int ano = Integer.parseInt(strData.nextToken());
+				int mes = Integer.parseInt(strData.nextToken());
+				String dayParcial = strData.nextToken();
+				//out.println(dayParcial+"<br>");
+				String dayFinal = dayParcial.substring(0, dayParcial.indexOf(" "));
+				int dia = Integer.parseInt(dayFinal);
+					
+				if(botao.equals("nivel"))
+					floatValue = rs.getFloat("NIVEL");
+				else if (botao.equals("vazao"))
+					floatValue = rs.getFloat("VAZAO");
+				if(floatValue > 0){
+					//out.println("["+ mes +"]"+"["+ dia +"]"+floatValue+"<br>");
+					arrayMes[mes][dia]= floatValue;
+				}
+			}
+			rs.close();								
+		} catch (Exception e) {
+			out.println("erro lendo dados de medidas mensais: "+e.getMessage());
 		}
-		rs.close();								
-    } catch (Exception e) {
-	    out.println("erro lendo dados de medidas mensais: "+e.getMessage());
-    }
+	}
 	
 } else if (tableType.equals("anual")) {
 	StringTokenizer strData = new StringTokenizer(data, "/");	
@@ -1048,6 +1071,167 @@ String botao = request.getParameter("opcao");
 	    </tr>	    
 	</table>
 	<br><br>
+
+    <%
+	//Testando Criação de gráfico
+	/*
+	TimeSeries series1 = new TimeSeries("Nivel", Minute.class);
+    TimeSeries series2 = new TimeSeries("Vazao", Minute.class);
+    TimeSeries series3 = new TimeSeries("Corrente", Minute.class);
+    
+	StringTokenizer strData = new StringTokenizer(data_inicial_form, "/");	
+	String diaStr = strData.nextToken();
+	String mesStr = strData.nextToken();
+	String anoStr = strData.nextToken();
+	String data_ini = anoStr + "/" + mesStr + "/" + diaStr + " " + hora_inicial_form;
+	
+	strData = new StringTokenizer(data_final_form, "/");	
+	diaStr = strData.nextToken();
+	mesStr = strData.nextToken();
+	anoStr = strData.nextToken();
+	String data_end = anoStr + "/" + mesStr + "/" + diaStr + " " + hora_final_form;
+		
+	String QUERY_NIVEL = "SELECT * FROM sigas_pocos where codigo_str = '" + code + "' and data BETWEEN '" + data_ini+ "' and '" + data_end + "' order by data";	
+	String QUERY = "SELECT * FROM grandezas where code = '" + code + "' and data BETWEEN '" + data_ini+ "' and '" + data_end + "' order by data";
+	try {	
+        connection = DriverManager.getConnection (url, "sysdba", "masterkey");
+		    
+        stmt = connection.createStatement();
+
+		if(nivel_chk.equals("checked")){		
+			ResultSet rs2 = stmt.executeQuery(QUERY_NIVEL);
+			while (rs2.next()) {
+				//Pegando data
+				String data_ts = rs2.getString("DATA");
+				String dataParsing = data_ts.substring(0, data_ts.indexOf(" "));
+				strData = new StringTokenizer(dataParsing, "-");
+				int anoInt = Integer.parseInt(strData.nextToken());
+				int mesInt = Integer.parseInt(strData.nextToken());
+				int diaInt = Integer.parseInt(strData.nextToken());
+				strData = new StringTokenizer(data_ts.substring(data_ts.indexOf(" ")+1), ":");
+				int hora = Integer.parseInt(strData.nextToken());
+				int minuto = Integer.parseInt(strData.nextToken());
+				String segundoStr = strData.nextToken();
+				StringTokenizer segundoTkn = new StringTokenizer(segundoStr, ".");
+				int segundo = Integer.parseInt(segundoTkn.nextToken());
+				series1.addOrUpdate(new Minute(minuto, hora, diaInt, mesInt, anoInt), rs2.getFloat("NIVEL"));								
+			}
+		}
+		
+		if((corrente_chk.equals("checked")) || (vazao_chk.equals("checked"))){
+	        rs = stmt.executeQuery(QUERY);
+			while (rs.next()){
+				//Pegando data
+				String data_ts = rs.getString("DATA");
+				String dataParsing = data_ts.substring(0, data_ts.indexOf(" "));
+				strData = new StringTokenizer(dataParsing, "-");
+				int anoInt = Integer.parseInt(strData.nextToken());
+				int mesInt = Integer.parseInt(strData.nextToken());
+				int diaInt = Integer.parseInt(strData.nextToken());
+				//Pegando hora
+				strData = new StringTokenizer(data_ts.substring(data_ts.indexOf(" ")+1), ":");
+				int hora = Integer.parseInt(strData.nextToken());
+				int minuto = Integer.parseInt(strData.nextToken());
+				String segundoStr = strData.nextToken();
+				StringTokenizer segundoTkn = new StringTokenizer(segundoStr, ".");
+				int segundo = Integer.parseInt(segundoTkn.nextToken());
+							
+				if(vazao_chk.equals("checked")){
+					series2.addOrUpdate(new Minute(minuto, hora, diaInt, mesInt, anoInt), rs.getInt("VAZAO"));				
+				}
+				if(corrente_chk.equals("checked")){
+					series3.addOrUpdate(new Minute(minuto, hora, diaInt, mesInt, anoInt), rs.getFloat("CORRENTE"));				
+				}						
+			}
+		}		
+    } catch (Exception e){
+    	%> Erro gerando series <%=e.getMessage()%> <%
+	   
+    }    
+    
+	//final XYDataset dataset = createDataset();
+	TimeSeriesCollection dataset = new TimeSeriesCollection();
+	String yAxis = "";
+	if(nivel_chk.equals("checked")){
+		dataset.addSeries(series1);
+		yAxis+= "- Nivel ";		
+	}
+	if(vazao_chk.equals("checked")){
+		dataset.addSeries(series2);
+		yAxis+= "- Vazão ";
+		out.println("Dados de vazão em metros cúbicos / hora.<br>");
+	}
+	if(corrente_chk.equals("checked")){
+		dataset.addSeries(series3);
+		yAxis+= "- Corrente ";		
+	}
+	yAxis+= "-";
+	dataset.setDomainIsPointsInTime(true);
+	
+    //Testando código pronto
+       JFreeChart chart = ChartFactory.createTimeSeriesChart(
+            "Dados Recuperados no Período",  // title
+            "Data",             // x-axis label
+            yAxis,   // y-axis label
+            dataset,            // data
+            true,               // create legend?
+            true,               // generate tooltips?
+            false               // generate URLs?
+        );
+
+        chart.setBackgroundPaint(Color.white);
+        //chart.getCategoryPlot().getRenderer(0).setSeriesPaint(1, Color.BLUE); 
+                
+        XYPlot plot = (XYPlot) chart.getPlot();
+        plot.setBackgroundPaint(Color.lightGray);
+        plot.setDomainGridlinePaint(Color.white);
+        plot.setRangeGridlinePaint(Color.white);
+        //plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
+        plot.setDomainCrosshairVisible(true);
+        plot.setRangeCrosshairVisible(true);
+        XYItemRenderer r = plot.getRenderer();
+        if (r instanceof XYLineAndShapeRenderer) {
+            XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
+            renderer.setShapesVisible(false);
+            renderer.setShapesFilled(false);
+        }    
+	
+
+		try {	
+	   		// XYPlot plot = (XYPlot)chart.getPlot();
+	    
+	        //plot.setRenderer(renderer);
+		    //chart.setBackgroundPaint(new Color(255 , 255 , 255));	
+		
+		    final ChartPanel chartPanel = new ChartPanel(chart);
+			//final CategoryPlot plot = chart.getCategoryPlot();
+			//plot.setForegroundAlpha(0.5f);
+			
+			// Cor do fundo do grafico
+			//plot.setBackgroundPaint(new Color(159, 182, 205));
+			
+			//plot.setOutlinePaint(new Color(0,250,0));
+	    }catch (Exception e) {
+	    	%> Erro no plot <%=e.getMessage()%> <%    	
+	    }
+	    java.util.Calendar cal = Calendar.getInstance();
+		int monthInt = cal.get(Calendar.MONTH)+1;
+		String monthStr = ""+monthInt;
+		if (monthInt < 10)
+		    monthStr = "0"+monthStr;
+		String path = "C:/Program Files/Apache Software Foundation/Tomcat 6.0/webapps/dev/"; // Path casa Cleo
+	    //String path = "C:/Arquivos de programas/Apache Software Foundation/Tomcat 6.0/webapps/dev/"; //Path Juper
+		String graphDate = "graph" + cal.get(Calendar.DAY_OF_MONTH) + "-" + monthStr + "-" + cal.get(Calendar.YEAR) + ".png";
+		
+		try {				
+			final ChartRenderingInfo info = new ChartRenderingInfo(new StandardEntityCollection());
+			final File file1 = new File(path+graphDate);
+		    ChartUtilities.saveChartAsPNG(file1, chart, 900, 600, info);
+		} catch (Exception e) {
+	    	%> Erro salvando imagem do grafico <%=e.getMessage()%> <%    			
+			out.println(e);
+		} */ %>
+	    <img src="" alt="" height="600" width="900">
 
 
   <%} %>
@@ -1143,7 +1327,7 @@ String botao = request.getParameter("opcao");
     	   <tr>
 	          <td style="font-family: Arial;" bgcolor=e5e5ea align="center" width=45><small><small><small> <%=i%> </small></small></small></td>
 	          <% for (int j=1; j<=12; j++) { //Iterando entre os meses %>
-	              <td style="font-family: Arial;" bgcolor=fffffd align="center" width=45><small><small><small> <%=arrayMediaMes[j][i]%> </small></small></small></td>                  	         	         	 
+	              <td style="font-family: Arial;" bgcolor=fffffd align="center" width=45><small><small><small> <%=arrayMes[j][i]%> </small></small></small></td>                  	         	         	 
 	          <% } %>
 	       </tr>
         <%} 
@@ -1159,4 +1343,3 @@ String botao = request.getParameter("opcao");
 </form>
 </body>
 </html>
-  		
