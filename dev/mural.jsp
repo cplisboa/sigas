@@ -91,13 +91,6 @@
 						<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold; height: 27">
 							<div>
 								Poço <%=status[i].poco.getName()%>: <%=status[i].getFrase()%>
-								<% // Se o usuário for o SIGAS e poço não está em manutenção. Disponibilizar botão para colocar em manutenção.
-								if (user.equals("SIGAS") && !status[i].hasManutencao) { %>
-									<input type="button" id="btnSave" name="btnSave" class="btn btn-success pull-right" onclick="setManutencao('<%=status[i].poco.getCode()%>')" value="Colocar em manutenção">									
-									
-								<% } else if (user.equals("SIGAS") && status[i].hasManutencao) { %>
-									<input type="button" id="btnSave"   name="btnSave" class="btn btn-danger pull-right" onclick="delManutencao('<%=status[i].poco.getCode()%>')" value="Remover da manutenção">
-								<% } %>
 							</div>
 						</td>
 					</tr>

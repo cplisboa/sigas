@@ -59,7 +59,7 @@
     	gerais.finalidade = request.getParameter("tFimUso");
 		gerais.vazaoOutorgada = request.getParameter("tVazOut");
 		gerais.volumeOut = request.getParameter("tVolOut");
-		gerais.situacao = request.getParameter("tSituation");
+		gerais.manutencao = Integer.parseInt(request.getParameter("tSituation"));
 		gerais.reativadoData = request.getParameter("tReativado");
 		gerais.obs = request.getParameter("tObs");
 		try {	
@@ -205,8 +205,16 @@ LOCALIDADE, BAIRRO:</td>
     <td style="height: 23px; width: 350px; background-image: url(cor_gerais.jpg); font-size: 12px; font-family: Arial; font-weight: bold;">REATIVADO EM:</td>
 </tr>
 <tr style="height: 23px;">
-    <td style="height: 23px; width: 350px; font-size: 12px; font-family: Arial; font-weight: bold;">
-		<input name="tSituation" value="<%=gera.situacao%>" style="height: 23px; width: 350px" type="text">
+    <td style="height: 23px; width: 350px; font-size: 12px; font-family: Arial; font-weight: bold;">	
+		<select name="tSituation" id="tSituation" tabindex="1" >
+			<% if (gera.manutencao==1) { %>
+				<option value="0"> EM OPERA플O </option>
+				<option selected value="1"> EM MANUTEN플O </option>
+			<% } else { %>
+				<option selected value="0"> EM OPERA플O </option>
+				<option value="1"> EM MANUTEN플O </option>
+			<% } %>
+		</select>
 	</td>
     <td style="height: 23px; width: 350px; font-size: 12px; font-family: Arial; font-weight: bold;">
 		<input name="tReativado" value="<%=gera.reativadoData%>" style="height: 23px; width: 350px" type="text">
