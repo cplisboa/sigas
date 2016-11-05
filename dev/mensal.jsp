@@ -648,6 +648,10 @@ String botao = request.getParameter("opcao");
 		// Vou recuperar o ultimo dado inserdio para depois criar o HTML
 		DataRequester dr = new DataRequester("jdbc:firebirdsql:localhost/3050:C:/juper/old_site/SIGAS.GDB");
 		med = (Medida) dr.onlineData(code); 	
+
+		//Recuperando dados de projeto que estão junto aos dados hidrogeológicos
+		Hidrogeo hgeo = new Hidrogeo();
+		hgeo = hgeo.fillHidrogeo(pocoName);
 		if (med!=null) { 
 			// Verificando se o poço está em operação
 			if(med.getCorrente() > 0) {
@@ -685,7 +689,10 @@ String botao = request.getParameter("opcao");
 				<tr>
 				  <td style="width: 98px; height: 15px;"><img style="width: 132px; height: 13px;" src="tit_controle_operacional.png"></td>
 				  <td style="width: 640px; height: 15px;"></td>
-				  <td style="text-align: right; width: 127px; height: 15px;"><img style="width: 97px; height: 26px;" onclick=document.myForm.tableType.value="mensal.jsp" src="bt_atualizar.png"></td>
+
+				  <td style="text-align: right; width: 127px; height: 15px;">
+					  <input name="tableType" onclick="document.getElementById('pocoName').value = '<%=code%>';document.forms['myForm'].submit();" value="controle" type="image" style="width=97; height=26" src="bt_atualizar.png">
+				  </td>
 				</tr>
 			  </tbody>
 			</table>
@@ -716,13 +723,14 @@ String botao = request.getParameter("opcao");
 				  <td style="color: rgb(0, 40, 240); background-image:url('linha01.jpg'); font-size: 14px; font-family: Arial; height: 58px; font-weight: bold; text-align: center;"></td>
 				  <td style="color: rgb(0, 40, 240); background-image:url('linha01.jpg'); font-size: 14px; font-family: Arial; height: 58px; font-weight: bold; text-align: center;"></td>
 				</tr>
+
 				<tr>
 				  <td style="width: 104px; background-image:url('linha02.jpg'); font-size: 14px; font-family: Arial;  height: 58px; font-weight: bold; text-align: center;">projeto</td>
-				  <td style="background-image:url('linha02.jpg'); text-align: center;"></td>
-				  <td style="background-image:url('linha02.jpg'); text-align: center;"></td>
-				  <td style="background-image:url('linha02.jpg'); text-align: center;"></td>
-				  <td style="background-image:url('linha02.jpg'); text-align: center;"></td>
-				  <td style="background-image:url('linha02.jpg'); text-align: center;"></td>
+				  <td style="background-image:url('linha02.jpg'); font-weight: bold; text-align: center;"> --- </td>
+				  <td style="background-image:url('linha02.jpg'); font-weight: bold; text-align: center;"> <%=hgeo.PROJ_NE%> </td>
+				  <td style="background-image:url('linha02.jpg'); font-weight: bold; text-align: center;"> <%=hgeo.VAZAO%> </td>
+				  <td style="background-image:url('linha02.jpg'); font-weight: bold; text-align: center;"></td>
+				  <td style="background-image:url('linha02.jpg'); font-weight: bold; text-align: center;"></td>
 				</tr>
 			  </tbody>
 			</table>
