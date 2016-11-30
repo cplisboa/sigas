@@ -53,6 +53,7 @@
 <script src="odometer.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="extjs.vs/resources/css/ext-all.css"/>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
 <script>
     function showCalendar() {
 		displayDatePicker('dataText', false, 'dmy', '/');	
@@ -197,7 +198,7 @@ body {
   </style>
 </head>
 
-<!-- Inicio BODY -->
+
 <body bgcolor="" style="margin-left: 0px; margin-top: 0px; margin-right: 0px;margin-bottom: 0px;">
 
 <%
@@ -756,97 +757,159 @@ String botao = request.getParameter("opcao");
 	if(rs.next()) {
 		hidro = rs.getFloat("hidrometro");
 	} 
-	rs.close();
+	rs.close(); %>
 		
 	
-	if (pocoSelected){ %>
-		<table style="border-collapse: collapse; text-align: left; margin-left: 10px; width: 700px; height: 15px;" border="1" cellpadding="0" cellspacing="0">
-	<% } else { %>
-		<table style="border-collapse: collapse; text-align: left; margin-left: 10px; width: 700px; height: 15px;" border="1" cellpadding="0" cellspacing="0">	
-	<% } %>
-    <tbody>
-      <tr>
-	      <td colspan=2 style="background-image:url('tile_painel_avisos.png'); text-align: center; font-family: Arial; font-size: 14px; font-weight: bold; height: 23px; width: 600px;">PAINEL DE AVISOS</td>
-	  </tr>
-	  <tr>
-	  	  <td style="height: 27"></td>
-		  <% if (pocoSelected){ %>
-		  <td rowspan=5 style="text-align: center; background-image:url('relogio.png'); font-family: Arial; font-size: 12px; font-weight: bold; height: 117px; width: 114px;> 
-			   <div id="odometer" class="odometer"> <%=hidro%> </div>
-		  </td>
-		  <% } else { %>
-		      <td></td>
-		  <% } %>
-	  </tr>
-	  <tr>
-		
-			<% if ((pocoName.length() > 0) && ((code == null) || (code.equals("")))) { %>		
-				<td style="color: rgb(220, 20, 10); font-size: 14px; font-family: Arial; font-weight: bold;"> Problemas nos dados cadastrais do poço: <%=request.getParameter("pocoName")%>. Favor corrigir. </td>		  		  			
-			<% } else if ((code != null) && (!code.equals(""))) { %>
-				<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> Dados de identificação do poço: <%=request.getParameter("pocoName")%> </td>		  		  
-			<% } else if(systemSelected) { %>	
-				<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> Sistema selecionado. Agora selecione poço no menu ao lado. </td>				
-			<% } else { %>	
-				<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> Nenhum sistema selecionado. Selecione o Sistema no menu ao lado. </td>				
+
+	<div class="row">
+	<div class="col-md-9">
+		<% if (pocoSelected){ %>
+			<table style="border-collapse: collapse; text-align: left; margin-left: 10px; width: 700px; height: 15px;" border="1" cellpadding="0" cellspacing="0">
+		<% } else { %>
+			<table style="border-collapse: collapse; text-align: left; margin-left: 10px; width: 700px; height: 15px;" border="1" cellpadding="0" cellspacing="0">	
+		<% } %>
+
+	    <tbody>
+	      <tr>
+		      <td colspan=2 style="background-image:url('tile_painel_avisos.png'); text-align: center; font-family: Arial; font-size: 14px; font-weight: bold; height: 23px; width: 600px;">PAINEL DE AVISOS</td>
+
+
+
+
+
+
+
+
+
+
+		  </tr>
+		  <tr>			
+
+				<% if ((pocoName.length() > 0) && ((code == null) || (code.equals("")))) { %>		
+					<td style="color: rgb(220, 20, 10); font-size: 14px; font-family: Arial; font-weight: bold;"> Problemas nos dados cadastrais do poço: <%=request.getParameter("pocoName")%>. Favor corrigir. </td>		  		  			
+				<% } else if ((code != null) && (!code.equals(""))) { %>
+					<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> Dados de identificação do poço: <%=request.getParameter("pocoName")%> </td>		  		  
+				<% } else if(systemSelected) { %>	
+					<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> Sistema selecionado. Agora selecione poço no menu ao lado. </td>				
+				<% } else { %>	
+					<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> Nenhum sistema selecionado. Selecione o Sistema no menu ao lado. </td>				
+				<% } %>
+		   </tr>
+		   <tr>
+		     <td style="height: 27"></td>
+		   </tr>	    
+		   <tr>
+			  <% if(med == null) { 
+					if ((code != null) && (!code.equals(""))) { %>
+						<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> NENHUMA MEDIDA ENCONTRADA PARA ESSE POÇO </td>
+					<% } %>								
+			  <% } else { %>
+					<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> Ultima medida em : <%=med.getTs()%></td>
+			  <% } %>
+			
+		   </tr>
+		   <tr>
+		     <td style="height: 27"></td>
+		   </tr>
+		   <tr>
+				<% if ((code != null) && (!code.equals(""))) { %>
+					<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> Identificador do Poço (UTM Leste/Oeste): <%=request.getParameter("code")%></td>
+				<% } else { %>			
+					<td style="height: 27"></td>
+				<% } %>				
+		   </tr>
+		   <tr>
+		     <td style="height: 27"></td>
+		   </tr>
+		   <tr>
+				<% if(med != null) { %>
+					<td style="color: rgb(220, 20, 10); font-size: 14px; font-family: Arial; font-weight: bold;"> <%=frase%> </td>
+	 		    <% } else { %>
+					<td style="height: 27"></td>
+			    <% } %>
+		   </tr>
+		   <tr>
+		     <td style="height: 27"></td>
+		   </tr>
+		   <tr>
+				<% if(unknownState) { %>
+					<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> Poço em estado desconhecido devido ao tempo sem leitura </td>
+	 		    <% } else { %>
+					<td style="height: 27"></td>
+			    <% } %>
+		    </tr>
+
+		    <!--Linhas em branco no painel de avisos -->
+		    <% for(int i=0; i < 4; i++) { %>
+			    <tr> <td style="height: 27"> </td>  </tr>
 			<% } %>
-	   </tr>
-	   <tr>
-	     <td style="height: 27"></td>
-	   </tr>	    
-	   <tr>
-		  <% if(med == null) { 
-				if ((code != null) && (!code.equals(""))) { %>
-					<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> NENHUMA MEDIDA ENCONTRADA PARA ESSE POÇO </td>
-				<% } %>								
-		  <% } else { %>
-				<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> Ultima medida em : <%=med.getTs()%></td>
-		  <% } %>
-		
-	   </tr>
-	   <tr>
-	     <td style="height: 27"></td>
-	   </tr>
-	   <tr>
-			<% if ((code != null) && (!code.equals(""))) { %>
-				<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> Identificador do Poço (UTM Leste/Oeste): <%=request.getParameter("code")%></td>
-			<% } else { %>			
-				<td style="height: 27"></td>
-			<% } %>				
-	   </tr>
-	   <tr>
-	     <td style="height: 27"></td>
-	   </tr>
-	   <tr>
-			<% if(med != null) { %>
-				<td style="color: rgb(220, 20, 10); font-size: 14px; font-family: Arial; font-weight: bold;"> <%=frase%> </td>
- 		    <% } else { %>
-				<td style="height: 27"></td>
-		    <% } %>
-	   </tr>
-	   <tr>
-	     <td style="height: 27"></td>
-	   </tr>
-	   <tr>
-			<% if(unknownState) { %>
-				<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> Poço em estado desconhecido devido ao tempo sem leitura </td>
- 		    <% } else { %>
-				<td style="height: 27"></td>
-		    <% } %>
-	    </tr>
-	    <tr>
-	     <td style="height: 27"></td>
-	    </tr>
-	    <tr>
-	     <td style="height: 27"></td>
-	    </tr>
-	    <tr>
-	     <td style="height: 27"></td>
-	    </tr>
-	    <tr>
-	     <td style="height: 27"></td>
-	    </tr>
-	  </tbody>
-	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		  </tbody>
+		</table>
+	</div>
+	<div class="col-md-3">
+		<% if (pocoSelected){ %>
+		   <div id="odometer" class="odometer"> <%=hidro%> </div>
+		<% } %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+</div>
 <%
 //Aqui termina o ctrl operacional 
 } else if (!tableType.equals("operacional")) { 
@@ -1239,7 +1302,6 @@ String botao = request.getParameter("opcao");
 			out.println(e);
 		}  %>
 	    <img src="<%=graphDate%>" alt="" height="600" width="900">
-
   <%} %>
 <table bordercolor=cdcccb border="1" cellpadding="4" cellspacing="0" style="border-collapse: collapse; margin-left: 10px;">
 <tbody>
