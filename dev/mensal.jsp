@@ -744,16 +744,6 @@ String botao = request.getParameter("opcao");
 	<% } //Fim da tabela de cima, que só deve aparecer com poço selecionado %>
 
 	<br>
-		<% if (pocoSelected){ %>
-		    <div id="odometer" class="odometer"> 123456 </div>
-	   		<script>
-				setTimeout(function(){
-					odometer.innerHTML = <%=hidro%>;
-				}, 1000);
-
-			</script>		
-
-		<% } %>
 	<br>
 	
 	<%// TABELA PAINEL DE AVISOS 
