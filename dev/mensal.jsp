@@ -50,6 +50,11 @@
 <!-- Odometr includes -->
 
 <link rel="stylesheet" href="http://github.hubspot.com/odometer/themes/odometer-theme-car.css" />
+<style>
+  .odometer {  	  
+      font-size: 20px;
+  }
+</style>
 <script src="odometer.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="extjs.vs/resources/css/ext-all.css"/>
@@ -738,7 +743,18 @@ String botao = request.getParameter("opcao");
 		<% } %>
 	<% } //Fim da tabela de cima, que só deve aparecer com poço selecionado %>
 
-	<br><br>
+	<br>
+		<% if (pocoSelected){ %>
+		    <div id="odometer" class="odometer"> 123456 </div>
+	   		<script>
+				setTimeout(function(){
+					odometer.innerHTML = <%=hidro%>;
+				}, 1000);
+
+			</script>		
+
+		<% } %>
+	<br>
 	
 	<%// TABELA PAINEL DE AVISOS 
 
@@ -890,23 +906,17 @@ String botao = request.getParameter("opcao");
 		</table>
 	</div>
 	<div class="col-md-3">
+	
 		<% if (pocoSelected){ %>
-		   <div id="odometer" class="odometer"> <%=hidro%> </div>
+		    <div id="odometer" class="odometer"> 123456 </div>
+	   		<script>
+				setTimeout(function(){
+					odometer.innerHTML = <%=hidro%>;
+				}, 1000);
+
+			</script>		
+
 		<% } %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	</div>
 </div>
