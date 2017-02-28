@@ -42,7 +42,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
 <script type="text/javascript" src="selecionador.js"></script>
@@ -52,7 +52,7 @@
 <link rel="stylesheet" href="http://github.hubspot.com/odometer/themes/odometer-theme-car.css" />
 <style>
   .odometer {  	  
-      font-size: 20px;
+      font-size: 11px;
   }
 </style>
 <script src="odometer.min.js"></script>
@@ -64,20 +64,14 @@
 		displayDatePicker('dataText', false, 'dmy', '/');	
 	}
 	
-	function presubmit() {
-		//alert("pre-submit");		
-		//document.getElementById("opcao").value = "nivel";		
-
-		
+	function submeter(codigo) {					
+		document.forms["myForm"].submit();		
 	}
 	
 	function saveus() 	{
-		alert("teste");     
 		document.myForm.submit();
 	}
-	
 </script>
-
 
 <style>
 body {
@@ -257,6 +251,7 @@ if(pocoName==null){
 } else {
 	//Setando pocoNAme na sessao
 	sessao.setAttribute("pocoNumber",pocoName);
+	sessao.setAttribute("code",code);
 }
 
 if(tableType==null){
@@ -267,6 +262,10 @@ if(tableType==null){
 	<input type="text" hidden="true" name="tableType" value="<%=tableType%>" />	
 	<input type="text" hidden="true" name="gestao" value="<%=request.getParameter("gestao")%>" />	
 	<input type="text" hidden="true" name="opcao" value="<%=request.getParameter("opcao")%>" />
+
+	<input type="text" hidden="true" name="pocoName" value="<%=request.getParameter("pocoName")%>" />	
+	<input type="text" hidden="true" name="code" value="<%=request.getParameter("code")%>" />
+
 
 <% 
 }
@@ -697,7 +696,7 @@ String botao = request.getParameter("opcao");
 				  <td style="width: 640px; height: 15px;"></td>
 
 				  <td style="text-align: right; width: 127px; height: 15px;">
-					  <input name="tableType" onclick="document.getElementById('pocoName').value = '<%=code%>';document.forms['myForm'].submit();" value="controle" type="image" style="width=97; height=26" src="bt_atualizar.png">
+					  <input name="tableType" onclick="submeter(<%=code%>);" value="controle" type="image" style="width=97; height=26" src="bt_atualizar.png">
 				  </td>
 				</tr>
 			  </tbody>
@@ -775,19 +774,11 @@ String botao = request.getParameter("opcao");
 			<table style="border-collapse: collapse; text-align: left; margin-left: 10px; width: 700px; height: 15px;" border="1" cellpadding="0" cellspacing="0">	
 		<% } %>
 
+
+
 	    <tbody>
 	      <tr>
 		      <td colspan=2 style="background-image:url('tile_painel_avisos.png'); text-align: center; font-family: Arial; font-size: 14px; font-weight: bold; height: 23px; width: 600px;">PAINEL DE AVISOS</td>
-
-
-
-
-
-
-
-
-
-
 		  </tr>
 		  <tr>			
 
@@ -850,61 +841,19 @@ String botao = request.getParameter("opcao");
 			    <tr> <td style="height: 27"> </td>  </tr>
 			<% } %>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		  </tbody>
 		</table>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-3" style="background-image:url('relogio.png');width: 117px;height: 117px;">
 	
 		<% if (pocoSelected){ %>
-		    <div id="odometer" class="odometer"> 123456 </div>
+		   <div id="odometer" class="odometer" style="margin-top: 47px; margin-left: 10px; font-weight: bold"> <%=hidro%> </div>
 	   		<script>
 				setTimeout(function(){
 					odometer.innerHTML = <%=hidro%>;
 				}, 1000);
 
-			</script>		
+			</script>
 
 		<% } %>
 
