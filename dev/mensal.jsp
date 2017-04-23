@@ -64,9 +64,6 @@
 		displayDatePicker('dataText', false, 'dmy', '/');	
 	}
 	
-	function submeter(codigo) {					
-		document.forms["myForm"].submit();		
-	}
 	
 	function saveus() 	{
 		document.myForm.submit();
@@ -205,14 +202,15 @@ body {
 	String url = "jdbc:firebirdsql:localhost/3050:c:/juper/old_site/SIGAS.GDB";
 	HttpSession sessao = request.getSession(true);  
 	String countSistema =(String) sessao.getAttribute("countSistema");
-	//out.println(countSistema+"<br>");
+	//out.println("CountSistema: "+countSistema+"<br>");
 	String code = request.getParameter("code");
+	
 	float hidro = 0;	
 	Connection connection = null;
 	Statement stmt = null;
 	ResultSet rs = null;
 
-	if (code == null) {
+	if (code == null || code.equals("null")) {
 		code = (String) request.getSession().getAttribute("code");
 	}
 	sessao.setAttribute("code",code);
@@ -228,16 +226,16 @@ body {
 		pocoSelected=true;
 	}
 
-	
-	 String data = request.getParameter("dataText");
-	 if(data==null) {
+	String data = request.getParameter("dataText");
+	//out.println("DataText: "+data);
+	if(data==null) {
 	 		  java.util.Calendar cal = Calendar.getInstance();
 	 		  int monthInt = cal.get(Calendar.MONTH)+1;
 	 		  String monthStr = ""+monthInt;
 	 		  if (monthInt < 10)
 	 			  monthStr = "0"+monthStr;
 	 		  data = cal.get(Calendar.DAY_OF_MONTH) + "/" + monthStr + "/" + cal.get(Calendar.YEAR);
-	 } 	 
+	} 	 
 
 %>
 <form name="myForm" method="post" action="mensal.jsp">
@@ -246,12 +244,23 @@ body {
 int anoAnual = 0;
 String tableType = request.getParameter("tableType");
 String pocoName = request.getParameter("pocoName");
-if(pocoName==null){
-	pocoName="";
-} else {
-	//Setando pocoNAme na sessao
-	sessao.setAttribute("pocoNumber",pocoName);
+%>
+<%
+if(pocoName==null || pocoName.equals("null")){
+	//out.println("Recuperando pocoName da sessao<br>");
+	pocoName = (String) sessao.getAttribute("pocoName");
+	code = (String) sessao.getAttribute("code");
+	
+	//Setando dados na sessao
+	sessao.setAttribute("pocoName",pocoName);
 	sessao.setAttribute("code",code);
+} else { //pocoName <> de null!!
+	
+	//out.println("Setando dados na sessao");
+	//Setando pocoName na sessao
+	sessao.setAttribute("pocoName",pocoName);
+	sessao.setAttribute("code",code);
+	sessao.setAttribute("tableType",tableType);
 }
 
 if(tableType==null){
@@ -259,6 +268,11 @@ if(tableType==null){
 } else {
 	
 %>
+
+<!-- pocoName: '<%=pocoName%>'<br> -->
+<!-- data: <%=data%><br> -->
+<!-- tableType: <%=tableType%><br>  -->
+
 	<input type="text" hidden="true" name="tableType" value="<%=tableType%>" />	
 	<input type="text" hidden="true" name="gestao" value="<%=request.getParameter("gestao")%>" />	
 	<input type="text" hidden="true" name="opcao" value="<%=request.getParameter("opcao")%>" />
@@ -271,10 +285,10 @@ if(tableType==null){
 }
 
 %>
-<!-- Table type = <%=tableType%> -->
-<!-- CountSistema = <%=countSistema%><br> -->	
-<!-- Code = <%=code%> <br> -->
-<!-- PocoName <%=pocoName%><br> -->
+ <!-- Table type = <%=tableType%>  -->
+ <!-- CountSistema = <%=countSistema%><br> 	-->
+ <!-- Code = <%=code%> <br> -->
+ <!-- PocoName <%=pocoName%><br>  -->
 
 <table style="text-align: left;" border="0" cellpadding="0" cellspacing="0">
   <tbody>
@@ -682,7 +696,7 @@ String botao = request.getParameter("opcao");
 		
 			%>
 			<br>
-			<table style="border-collapse: collapse; text-align: left; margin-left: 10px; width: 700px; height: 19px;" border="0"
+			<table style="border-collapse: collapse; text-align: left; margin-left: 10px; width: 550px; height: 19px;" border="0"
 			 cellpadding="0" cellspacing="0">
 			  <tbody>
 				<tr>
@@ -696,7 +710,7 @@ String botao = request.getParameter("opcao");
 				  <td style="width: 640px; height: 15px;"></td>
 
 				  <td style="text-align: right; width: 127px; height: 15px;">
-					  <input name="tableType" onclick="submeter(<%=code%>);" value="controle" type="image" style="width=97; height=26" src="bt_atualizar.png">
+					  <input name="tableType" onclick="submeter(<%=code%>,<%=pocoName%>);" value="controle" type="image" style="width=97; height=26" src="bt_atualizar.png">
 				  </td>
 				</tr>
 			  </tbody>
@@ -767,11 +781,11 @@ String botao = request.getParameter("opcao");
 	
 
 	<div class="row">
-	<div class="col-md-9">
+	<div class="col-md-7">
 		<% if (pocoSelected){ %>
-			<table style="border-collapse: collapse; text-align: left; margin-left: 10px; width: 700px; height: 15px;" border="1" cellpadding="0" cellspacing="0">
+			<table style="border-collapse: collapse; text-align: left; margin-left: 10px; width: 550px; height: 15px;" border="1" cellpadding="0" cellspacing="0">
 		<% } else { %>
-			<table style="border-collapse: collapse; text-align: left; margin-left: 10px; width: 700px; height: 15px;" border="1" cellpadding="0" cellspacing="0">	
+			<table style="border-collapse: collapse; text-align: left; margin-left: 10px; width: 550px; height: 15px;" border="1" cellpadding="0" cellspacing="0">	
 		<% } %>
 
 
@@ -783,9 +797,9 @@ String botao = request.getParameter("opcao");
 		  <tr>			
 
 				<% if ((pocoName.length() > 0) && ((code == null) || (code.equals("")))) { %>		
-					<td style="color: rgb(220, 20, 10); font-size: 14px; font-family: Arial; font-weight: bold;"> Problemas nos dados cadastrais do poço: <%=request.getParameter("pocoName")%>. Favor corrigir. </td>		  		  			
+					<td style="color: rgb(220, 20, 10); font-size: 14px; font-family: Arial; font-weight: bold;"> Problemas nos dados cadastrais do poço: <%=pocoName%>. Favor corrigir. </td>		  		  			
 				<% } else if ((code != null) && (!code.equals(""))) { %>
-					<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> Dados de identificação do poço: <%=request.getParameter("pocoName")%> </td>		  		  
+					<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> Dados de identificação do poço: <%=pocoName%> </td>		  		  
 				<% } else if(systemSelected) { %>	
 					<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> Sistema selecionado. Agora selecione poço no menu ao lado. </td>				
 				<% } else { %>	
@@ -810,7 +824,7 @@ String botao = request.getParameter("opcao");
 		   </tr>
 		   <tr>
 				<% if ((code != null) && (!code.equals(""))) { %>
-					<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> Identificador do Poço (UTM Leste/Oeste): <%=request.getParameter("code")%></td>
+					<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> Identificador do Poço (UTM Leste/Oeste): <%=code%></td>
 				<% } else { %>			
 					<td style="height: 27"></td>
 				<% } %>				
@@ -1358,5 +1372,19 @@ String botao = request.getParameter("opcao");
 %>
 
 </form>
+
+<script>
+
+	function submeter(codigo,name) {					
+		document.forms["myForm"].code.value=codigo;
+		document.forms["myForm"].countSistema.value=<%=countSistema%>;
+		document.forms["myForm"].dataText.value=<%=data%>;
+		document.forms["myForm"].pocoName.value=name;
+		document.forms["myForm"].tableType.value=<%=tableType%>;
+		document.forms["myForm"].submit();		
+	}
+
+
+</script>
 </body>
 </html>
