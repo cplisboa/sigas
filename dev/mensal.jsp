@@ -781,7 +781,7 @@ String botao = request.getParameter("opcao");
 	
 
 	<div class="row">
-	<div class="col-md-7">
+	<div class="col-md-6">
 		<% if (pocoSelected){ %>
 			<table style="border-collapse: collapse; text-align: left; margin-left: 10px; width: 550px; height: 15px;" border="1" cellpadding="0" cellspacing="0">
 		<% } else { %>
@@ -796,7 +796,7 @@ String botao = request.getParameter("opcao");
 		  </tr>
 		  <tr>			
 
-				<% if ((pocoName.length() > 0) && ((code == null) || (code.equals("")))) { %>		
+				<% if ((pocoName!=null) && (pocoName.length() > 0) && ((code == null) || (code.equals("")))) { %>		
 					<td style="color: rgb(220, 20, 10); font-size: 14px; font-family: Arial; font-weight: bold;"> Problemas nos dados cadastrais do poço: <%=pocoName%>. Favor corrigir. </td>		  		  			
 				<% } else if ((code != null) && (!code.equals(""))) { %>
 					<td style="color: rgb(0, 40, 240); font-size: 14px; font-family: Arial; font-weight: bold;"> Dados de identificação do poço: <%=pocoName%> </td>		  		  
@@ -858,7 +858,7 @@ String botao = request.getParameter("opcao");
 		  </tbody>
 		</table>
 	</div>
-	<div class="col-md-3" style="background-image:url('relogio.png');width: 117px;height: 117px;">
+	<div class="col-md-3" style="background-image:url('relogio.png'); margin-left: 40px; width: 117px; height: 117px;">
 	
 		<% if (pocoSelected){ %>
 		   <div id="odometer" class="odometer" style="margin-top: 47px; margin-left: 10px; font-weight: bold"> <%=hidro%> </div>
