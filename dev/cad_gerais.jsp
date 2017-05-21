@@ -26,8 +26,9 @@
 	<%
 
 	HttpSession sessao = request.getSession(true);  
-	String pocoNumber = (String) sessao.getAttribute("pocoNumber");
-	sessao.setAttribute("pocoNumber",pocoNumber);
+	String pocoNumber = (String) sessao.getAttribute("pocoName");
+	sessao.setAttribute("pocoName",pocoNumber);
+
 	String countSistema = (String) sessao.getAttribute("countSistema");
 	Gerais gera = new Gerais();
 	
