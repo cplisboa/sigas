@@ -42,7 +42,7 @@
 	int id_empresa = (Integer) request.getSession().getAttribute("id_empresa");
 	Sistema[] sistList = dr.getSistemas(id_empresa);
 	HttpSession sessao = request.getSession(true);  
-	String pocoNumber = (String) sessao.getAttribute("pocoNumber");  
+	String pocoNumber = (String) sessao.getAttribute("pocoName");  
     String countSistema = (String) sessao.getAttribute("countSistema");
 	//out.println("-->"+request.getSession().getAttribute("id_empresa"));
 	
